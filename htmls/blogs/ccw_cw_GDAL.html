@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<link rel="stylesheet" href="../../assets/css/prism.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../blog.html" class="logo"><strong>Blog</strong> <span>Fengyan Zhang</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../../index.html">Home</a></li>
+							<li><a href="../../aboutme.html">Aboutme</a></li>
+							<li><a href="../../htmls/projects.html">Projects</a></li>
+							<li><a href="../../htmls/experiences.html">Experiences</a></li>
+							<li><a href="../../htmls/blog.html">Blog</a></li>
+							<li><a href="../../htmls/fantasy.html">Fantasy</a></li>
+							<li><a href="../../contact.html">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h3>CCW or CW oriented when using GDAL to add points to <code>CGAL::Polygon_2</code></h3>
+									</header>
+									<p>
+										When loading points from a file using GDAL, a possible way is as such:
+<pre><code class="language-cpp">
+OGRLinearRing* outerRing = ogrPolygon->getExteriorRing();
+int NumOuterPoints = outerRing->getNumPoints() - 1; // first point is the same as the last point
+for (int i = 0; i < NumOuterPoints; ++i) // degenerate cases: NumOfouterRingPoints < 3?
+{
+	polygon.outer_boundary().push_back(Point(outerRing->getX(i), outerRing->getY(i)));
+}
+</code></pre>
+										<br />
+										Attention needs to be paid, the code snippet will add the points as a CW(clockwise)
+										manner (or this is depending on the specific dataset), whereas CCW is mostly wanted
+										in CGAL related code. Therefore, in order to do that, we can add the points from the end 
+										to the start:
+										<br />
+										<br />
+
+<pre><code class="language-cpp">
+OGRLinearRing* outerRing = ogrPolygon->getExteriorRing();
+int NumOuterPoints = outerRing->getNumPoints() - 1; // first point is the same as the last point
+for (int i = NumOuterPoints; i > 0; --i) // degenerate cases: NumOfouterRingPoints < 3?
+{
+	polygon.outer_boundary().push_back(Point(outerRing->getX(i), outerRing->getY(i)));
+}
+</code></pre>
+
+<br />
+										Another thing worth mentioning is that <code class="language-cpp">getNumPoints()</code>
+										will return one more number than the actual number of vertices in the polygon. For example, if there is a square formed with 4 vertices,
+										<code class="language-cpp">getNumPoints()</code> will return 5. This means 
+										<code class="language-cpp">(outerRing->getX(0), outerRing->getY(0))</code> and
+										<code class="language-cpp">(outerRing->getX(getNumPoints()-1), outerRing->getY(getNumPoints()-1))</code> both
+										refer to the same point.
+									</p>
+								</div>
+							</section>
+					</div>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Fengyan Zhang</li><li>All rights reserved.</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../assets/js/prism.js"></script>
+
+	</body>
+</html>
