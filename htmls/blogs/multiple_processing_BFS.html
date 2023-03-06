@@ -9,8 +9,9 @@
 		<title>Blog</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<link rel="stylesheet" href="../../assets/css/prism.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
 
@@ -19,7 +20,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<a href="blog.html" class="logo"><strong>Blog</strong> <span>Fengyan Zhang</span></a>
+						<a href="../blog.html" class="logo"><strong>Blog</strong> <span>Fengyan Zhang</span></a>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -28,13 +29,13 @@
 				<!-- Menu -->
 					<nav id="menu">
 						<ul class="links">
-							<li><a href="../index.html">Home</a></li>
-							<li><a href="../aboutme.html">Aboutme</a></li>
-							<li><a href="projects.html">Projects</a></li>
-							<li><a href="experiences.html">Experiences</a></li>
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="fantasy.html">Fantasy</a></li>
-							<li><a href="../contact.html">Contact</a></li>
+							<li><a href="../../index.html">Home</a></li>
+							<li><a href="../../aboutme.html">Aboutme</a></li>
+							<li><a href="../../htmls/projects.html">Projects</a></li>
+							<li><a href="../../htmls/experiences.html">Experiences</a></li>
+							<li><a href="../../htmls/blog.html">Blog</a></li>
+							<li><a href="../../htmls/fantasy.html">Fantasy</a></li>
+							<li><a href="../../contact.html">Contact</a></li>
 						</ul>
 					</nav>
 
@@ -46,8 +47,54 @@
 									<header class="major">
 										<h3>Avoid multiple processing when using BFS to traverse a constrained triangulation</h3>
 									</header>
-									<P>More informaion to add.</P>
-									</ul>
+									<p>
+										The BFS algorithm is a well-known algorithm for expanding within limited boundaries, 
+										such as traversing all faces inside a polygon in a constrained triangulation. However, 
+										it's important to note that during a BFS traversal, there's a possibility 
+										that unprocessed faces may be added to the queue more than once. 
+										To avoid this issue, it's recommended to check if an element has already 
+										been processed before processing the front element of the queue.
+<br />
+										An example is shown as below:
+										<br />
+										<img src="../../images/blogs/multiple_processing_BFS.PNG" alt="alternatetext" style="width:300px;height:350px"><br />
+										Starting from the bottom face, the rule is to not cross any constrained edges, 
+										and each face can only be processed once. And after the BFS traversal, there are two faces (with blue triangle marked)
+										which have been added to the queue twice. To address this issue, a potential solution is to check whether the current face has already been processed. 
+										If it hasn't, then it can be processed.
+<pre><code class="language-cpp">
+// pseudo code for an example
+	
+queue to store faces; // for BFS
+add starting face to the queue;
+
+while (queue is not empty)
+{
+	currentFace = queue.front();
+	if (current face has not been processed yet) { // if not yet been processed, process it
+		process it;
+		mark it as processed;
+	}
+	queue.pop(); // pop the current face from the queue
+
+	// Add all possible finite neighbours - not crossing constrained edges and not yet processed
+	for (int i = 0; i < 3; ++i) {
+		neighborFace = currentFace->neighbor(i);
+		if (neighborFace is a finite face) { // only add finite neighbors
+			commonEdge = common edge of (currentFace, neighborFace);
+			if (commonEdge is not constrained && neighborFace has not been processed yet) {
+				add the neighborFace to the queue
+			}
+		}
+	} // end for: all neighbors (including infinite neighbors)
+}
+</code></pre>
+										<br />
+										The processed faces are shown below(highlighted in cyan)
+										<br />
+										<br />
+										<img src="../../images/blogs/multiple_processing_tagging.PNG" alt="alternatetext" style="width:300px;height:350px"><br />
+									</p>
 								</div>
 							</section>
 					</div>
@@ -56,10 +103,6 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
-							<ul class="icons">
-								<li><a href="https://github.com/zfengyan" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="https://www.linkedin.com/in/fengyan-zhang-224577241" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-							</ul>
 							<ul class="copyright">
 								<li>&copy; Fengyan Zhang</li><li>All rights reserved.</a></li>
 							</ul>
@@ -69,13 +112,14 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="../assets/js/jquery.min.js"></script>
-			<script src="../assets/js/jquery.scrolly.min.js"></script>
-			<script src="../assets/js/jquery.scrollex.min.js"></script>
-			<script src="../assets/js/browser.min.js"></script>
-			<script src="../assets/js/breakpoints.min.js"></script>
-			<script src="../assets/js/util.js"></script>
-			<script src="../assets/js/main.js"></script>
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../assets/js/prism.js"></script>
 
 	</body>
 </html>
