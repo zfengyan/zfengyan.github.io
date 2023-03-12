@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<link rel="stylesheet" href="../../assets/css/prism.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../blog.html" class="logo"><strong>Blog</strong> <span>Fengyan Zhang</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../../index.html">Home</a></li>
+							<li><a href="../../aboutme.html">Aboutme</a></li>
+							<li><a href="../../htmls/projects.html">Projects</a></li>
+							<li><a href="../../htmls/experiences.html">Experiences</a></li>
+							<li><a href="../../htmls/blog.html">Blog</a></li>
+							<li><a href="../../htmls/fantasy.html">Fantasy</a></li>
+							<li><a href="../../contact.html">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h3>Attention when using <code>CGAL::Exact_predicates_inexact_constructions_kernel</code></h3>
+									</header>
+									<p>
+										The <code>CGAL::Exact_predicates_inexact_constructions_kernel</code> is often used as the geometric traits
+                                        for many CGAL data structures, including <code>CGAL::Constrained_Delaunay_triangulation_2</code> and 
+                                        <code>CGAL::Polygon_2</code>. However, care must be taken when using predicates since constructions are not exact. <br>
+                                        <br>
+                                        For example, when two intersecting polygons are embedded in a triangulation, points will be generated at the intersection(s).
+                                        If we use <code>CGAL::bounded_side_2</code> to check if an intersection point is on the boundary or inside/outside 
+                                        the polygons, the result may be unreliable due to the inexact construction. An intersection point 
+                                        may appear to be on the boundary of both polygons, but <code>CGAL::bounded_side_2</code> may indicate 
+                                        that it is inside one of the polygons. This is because the intersection point is constructed inexactly, but 
+                                        <code>CGAL::bounded_side_2</code> performs an exact check. To address this issue, 
+                                        one possible solution is to calculate the squared distance between the point and the boundary and set a precision tolerance.
+									</p>
+								</div>
+							</section>
+					</div>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Fengyan Zhang</li><li>All rights reserved.</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../assets/js/prism.js"></script>
+
+	</body>
+</html>
