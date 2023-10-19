@@ -56,21 +56,24 @@
 										In this context, V is regarded to have a dependency on U. 
 										The topological order is essentially a linear arrangement of all the vertices within a DAG. 
 										It provides a systematic depiction of feasible sequences originating from certain vertices 
-										and concluding at others.
+										and concluding at others. <br />
 
-										Now let's introduce some basic but important concepts of a DAG:
+										Now let's delve into some fundamental yet crucial concepts regarding a DAG:
+										<ol>
+											<li>A DAG contains at least one vertex with the indegree zero.</li>
+											<li>A DAG contains at least one vertex with the outdegree zero.</li>
+										</ol>
 
-										1. A DAG has at least one vertex with the indegree zero.
-										2. A DAG has at least one vertex with the outdegree zero.
-
-										These two characteristics are derived from the "acyclic" - that means there is no loop in the DAG, thus there is always at least an origin vertex and an ending vertex. It is noteworthy that a DAG can consist of multiple disconnected components, meaning that there can be separate subgraphs within the graph that are not directly connected to each other. Each of these components is still a DAG, as long as they satisfy the two properties mentioned above.
+										These two characteristics are derived from the term "acyclic" - signifying the absence of loops 
+										within the DAG. Consequently, there is always at least one origin vertex and one ending vertex. 
+										It's important to note that a DAG can comprise multiple disconnected components, 
+										meaning that there can be separate subgraphs within the graph that are not directly connected 
+										to each other. Each of these components is still a DAG, as long as they satisfy the two 
+										properties mentioned above.
 
 										<br />
 										<img src="../../images/blogs/multiple_processing_BFS.PNG" alt="alternatetext" style="width:300px;height:350px"><br />
-										Starting from the bottom face, the rule is to not cross any constrained edges, 
-										and each face can only be processed once. And after the BFS traversal, there are two faces (with blue triangle marked)
-										which have been added to the queue twice. To address this issue, a potential solution is to check whether the current face has already been processed. 
-										If it hasn't, then it can be processed.
+										
 <pre><code class="language-cpp">
 // pseudo code for an example
 	
