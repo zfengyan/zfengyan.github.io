@@ -100,7 +100,7 @@ input, select, textarea {
 
 	body {
 		background: #242943;
-	}
+	} /*#242943 - original color*/
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
