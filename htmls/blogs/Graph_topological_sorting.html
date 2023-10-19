@@ -153,31 +153,36 @@
 
 
 					
-<pre><code class="language-cpp">
+<pre><code class="language-cpp"> <!-- <pre></pre> is used for preformatted where the original format is crucial (formatting exactly as entered) -->
 // pseudo code for an example
-	
-queue to store faces; // for BFS
-add starting face to the queue;
 
-while (queue is not empty)
-{
-	currentFace = queue.front();
-	if (current face has not been processed yet) { // if not yet been processed, process it
-		process it;
-		mark it as processed;
+Kahn_topological_sort(Graph G)
+{	
+	For each node in G{
+		Find and populate indegree[node]; // get the indegree for all the nodes in G
 	}
-	queue.pop(); // pop the current face from the queue
 
-	// Add all possible finite neighbours - not crossing constrained edges and not yet processed
-	for (int i = 0; i < 3; ++i) {
-		neighborFace = currentFace->neighbor(i);
-		if (neighborFace is a finite face) { // only add finite neighbors
-			commonEdge = common edge of (currentFace, neighborFace);
-			if (commonEdge is not constrained && neighborFace has not been processed yet) {
-				add the neighborFace to the queue
-			}
+	Create a stack or queue; // auxiliary data structure - as a container
+
+	Add nodes with indegree 0 to the queue;
+
+	while(node U with indegree 0 exists in the queue){
+		Remove U from the queue;
+		Remove all its outgoing edges (U, Vi) from G;
+
+		For destination vertices Vi which had their incoming edges removed{
+			indegree[Vi] -= 1;
 		}
-	} // end for: all neighbors (including infinite neighbors)
+
+		Add new nodes with indegree 0 to the queue;
+	}
+
+	// determine if a topological ordering has been found
+	if(elements sorted = all elements)
+		return true or print nodes in topologically sorted order;
+	else 
+		return false or prompt that no topological ordering exists (e.g. there exists rings in G)
+
 }
 </code></pre>
 										<br />
