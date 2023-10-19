@@ -12,6 +12,24 @@
 		<link rel="stylesheet" href="../../assets/css/main.css" />
 		<link rel="stylesheet" href="../../assets/css/prism.css" />
 		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+		<!-- image grid with figure titles -->
+		<style>
+			.image-grid {
+			  display: grid;
+			  grid-template-columns: repeat(2, 1fr);
+			  gap: 10px; /* Adjust the gap as needed */
+			}
+			.image-container {
+		      text-align: center; /* Center the contents horizontally */
+			}
+			.image-container img {
+			  width: 100%; /* Make the images fill their grid cells */
+			  height: auto;
+			}
+			.image-title {
+			  margin: 10px 0; /* Add space between the image and title */
+			}
+		  </style>
 	</head>
 	<body class="is-preload">
 
@@ -72,10 +90,60 @@
 										to each other. Each of these components is still a DAG, as long as they satisfy the two 
 										properties mentioned above.
 
+										<br />
+										<br />
+
 										Let us see an example:
+
 										<br />
 										<img src="../../images/blogs/Graph_top_sort.png" alt="alternatetext" style="width:600px;height:300px"><br />
 										
+										<br />
+										Directed edges: <i>{0, 1}, {0, 2}, {1, 3}, {1, 4}, {3, 4}, {3, 5}</i>
+
+										<br />
+										"in" represents "indegree"
+
+										<br />
+										<b>Order of removal</b>: <i>0, 1, 2, 3, 4, 5</i>
+
+										<br />
+										<b>A possible topological order</b>: <i>0, 1, 2, 3, 4, 5</i>
+
+										<br />
+										Note that the sequence is not the only possible topological order. 
+										For instance, <i>0, 2, 1, 3, 4, 5</i> is also a valid topological order.
+										
+										<br />
+										The process of Kahn's algorithm:
+
+										<div class="image-grid">
+											<div class="image-container">
+											  <img src="../../images/blogs/Graph_top_sort_1.png" alt="Step 1">
+											  <p class="image-title">Step 1: remove node 0 (with indegree = 0) and its outward edges.
+												Update the indegree of the deleted edges’ destination nodes (1 and 2).
+											  </p>
+											</div>
+											<div class="image-container">
+											  <img src="../../images/blogs/Graph_top_sort_2.png" alt="Step 2">
+											  <p class="image-title">Step 2: remove node 1 and 2, alongside the outward edges. 
+												Update the indegree of node 3 and 4. 
+											  </p>
+											</div>
+											<div class="image-container">
+										      <img src="../../images/blogs/Graph_top_sort_3.png" alt="Step 3">
+											  <p class="image-title">Step 3: remove node 3 and its outward edges. 
+												Update the indegree of node 4 and 5.
+											  </p>
+											</div>
+											<div class="image-container">
+											  <img src="../../images/blogs/Graph_top_sort_4.png" alt="Step 4">
+											  <p class="image-title">Step 4: remove node 4 and 5.</p>
+											</div>
+										</div>
+
+
+					
 <pre><code class="language-cpp">
 // pseudo code for an example
 	
