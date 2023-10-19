@@ -1,0 +1,27 @@
+/*!
+ * css styles configured for customized pages (e.g. blogs)
+ */
+
+/* -- image grid with figure titles */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust the gap as needed */
+}
+.image-container {
+    text-align: center; /* Center the contents horizontally */
+}
+.image-container img {
+    width: 100%; /* Make the images fill their grid cells */
+    height: auto;
+}
+.image-title {
+    margin: 10px 0; /* Add space between the image and title */
+}
+  
+/* Define the styles for the <a> element with a specific class */
+.custom-link {
+    color: #14ddf8f5; /* Change the color to your preferred color code or name */
+    text-decoration: none; /* Remove underlining (optional) */
+}
+

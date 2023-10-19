@@ -11,25 +11,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../../assets/css/main.css" />
 		<link rel="stylesheet" href="../../assets/css/prism.css" />
+		<link rel="stylesheet" href="../../assets/css/mystyles.css" />
 		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
-		<!-- image grid with figure titles -->
-		<style>
-			.image-grid {
-			  display: grid;
-			  grid-template-columns: repeat(2, 1fr);
-			  gap: 10px; /* Adjust the gap as needed */
-			}
-			.image-container {
-		      text-align: center; /* Center the contents horizontally */
-			}
-			.image-container img {
-			  width: 100%; /* Make the images fill their grid cells */
-			  height: auto;
-			}
-			.image-title {
-			  margin: 10px 0; /* Add space between the image and title */
-			}
-		  </style>
 	</head>
 	<body class="is-preload">
 
@@ -64,6 +47,10 @@
 								<div class="inner">
 									<header class="major">
 										<h3>Kahn’s Algorithm for Topological Sorting</h3>
+										<h5>*The content is intended for self-study and sharing, the original blog is: 
+											<a href="https://www.interviewkickstart.com/learn/kahns-algorithm-topological-sorting" class="custom-link">
+												INTERVIEW KICKSTART - Kahn’s Algorithm for Topological Sorting.</a>
+										</h5>
 									</header>
 									<p>
 										In graph theory, topological sorting, often referred to as topological ordering, is primarily 
@@ -141,6 +128,28 @@
 											  <p class="image-title">Step 4: remove node 4 and 5.</p>
 											</div>
 										</div>
+
+										Now, with these considerations in mind, let's delve into the implementation details.
+										To begin, we will need to summarize specific steps in order to write pseudocode
+										and then proceed with the actual implementation.
+
+										<br />
+
+										Given a DAG, denoted as G and represented with an adjacency list, the algorithm can be 
+										summarized as follows:
+
+										<ul>
+											<li>Calculate the indegree for all nodes in G.</li>
+											<li>Identify a node with an indegree of 0, indicating no incoming edges.</li>
+											<li>Remove the identified node from G and add it to the topological ordering.</li>
+											<li>Remove the outgoing edges from the removed node in G.</li>
+											<li>Decrement the indegree of the connected destination nodes (those connected by the edges removed in the previous step).</li>
+											<li>Repeat these steps until no nodes are left with zero indegree, signifying that either
+												all nodes have been traversed or a cycle has been encountered.
+										</ul>
+
+										After completing these steps, check if all elements are present in the sorted order. If this is the case, a valid topological ordering has been obtained. Otherwise, no topological ordering is possible.
+
 
 
 					
