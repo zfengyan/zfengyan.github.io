@@ -45,17 +45,26 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h3>Avoid multiple processing when using BFS to traverse a constrained triangulation</h3>
+										<h3>Kahn’s Algorithm for Topological Sorting</h3>
 									</header>
 									<p>
-										The BFS algorithm is a well-known algorithm for expanding within limited boundaries, 
-										such as traversing all faces inside a polygon in a constrained triangulation. However, 
-										it's important to note that during a BFS traversal, there's a possibility 
-										that unprocessed faces may be added to the queue more than once. 
-										To avoid this issue, it's recommended to check if an element has already 
-										been processed before processing the front element of the queue.
-<br />
-										An example is shown as below:
+										In graph theory, topological sorting, often referred to as topological ordering, is primarily 
+										employed to determine the sequence of nodes in a directed acyclic graph (DAG). 
+										In a DAG, vertices have interdependencies due to the existance of directed edges. 
+										For instance, given two vertices U and V, a directed edge (U, V) implies that V 
+										can be reached from U, while the reverse is not true - U cannot be reached from V. 
+										In this context, V is regarded to have a dependency on U. 
+										The topological order is essentially a linear arrangement of all the vertices within a DAG. 
+										It provides a systematic depiction of feasible sequences originating from certain vertices 
+										and concluding at others.
+
+										Now let's introduce some basic but important concepts of a DAG:
+
+										1. A DAG has at least one vertex with the indegree zero.
+										2. A DAG has at least one vertex with the outdegree zero.
+
+										These two characteristics are derived from the "acyclic" - that means there is no loop in the DAG, thus there is always at least an origin vertex and an ending vertex. It is noteworthy that a DAG can consist of multiple disconnected components, meaning that there can be separate subgraphs within the graph that are not directly connected to each other. Each of these components is still a DAG, as long as they satisfy the two properties mentioned above.
+
 										<br />
 										<img src="../../images/blogs/multiple_processing_BFS.PNG" alt="alternatetext" style="width:300px;height:350px"><br />
 										Starting from the bottom face, the rule is to not cross any constrained edges, 
