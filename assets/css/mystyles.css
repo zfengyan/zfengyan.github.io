@@ -2,6 +2,8 @@
  * css styles configured for customized pages (e.g. blogs)
  */
 
+ /* In CSS, a period (.) before a class name is used to indicate that you are defining a class selector.  */
+
 /* -- image grid with figure titles */
 .image-grid {
     display: grid;
@@ -19,9 +21,16 @@
     margin: 10px 0; /* Add space between the image and title */
 }
   
+
 /* Define the styles for the <a> element with a specific class */
 .custom-link {
     color: #14ddf8f5; /* Change the color to your preferred color code or name */
     text-decoration: none; /* Remove underlining (optional) */
+}
+
+
+/* Define the styles for the code text */
+.custom-code {
+    color: cyan;
 }
 

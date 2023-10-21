@@ -186,10 +186,29 @@ Kahn_topological_sort(Graph G)
 }
 </code></pre>
 										<br />
-										The processed faces are shown below(highlighted in cyan)
+										Now let's implement it using C++, the very first thing is to design a data structure to store a graph.
 										<br />
+										For the purpose of simplfying the code, we might as well consider representing the graph nodes using integers, numbering from 0 to a specific value. 
+										
+										We can then use these integers as array indices. 
+										Consider the following example:
+<pre><code class="language-cpp">
+node_array[0] = {1, 2};
+</code></pre>
+										In this representation, it signifies that there are two directed edges: <i>0 -> 1, 0 -> 2</i>
 										<br />
-										<img src="../../images/blogs/multiple_processing_tagging.PNG" alt="alternatetext" style="width:300px;height:350px"><br />
+										To store our graph, we can make use of a 2D array, often referred to as an <i>adjacencyList</i>
+<pre><code class="language-cpp">
+vector&lt;vector&lt;int&gt;&gt; adjacencyList;
+</code></pre>
+										
+										As illustrated above, each element in the adjacencyList contains a 1D array, 
+										representing the destination nodes connected by directed edges originating from 
+										the current node. For instance, <code class="custom-code">adjacencyList[0]</code> 
+										represents a 1D array containing the nodes incident to node 0.
+										<br />
+										The overall code is as follows:
+										
 									</p>
 								</div>
 							</section>
