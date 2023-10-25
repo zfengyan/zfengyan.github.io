@@ -46,24 +46,50 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h3>Kahn’s Algorithm for Topological Sorting*</h3>
-										<h5>*The content is intended for self-study and sharing, the original blog is: 
-											<a href="https://www.interviewkickstart.com/learn/kahns-algorithm-topological-sorting" class="custom-link">
-												INTERVIEW KICKSTART - Kahn’s Algorithm for Topological Sorting.</a>
+										<h3>How to store a graph with customized nodes?</h3>
+										<h5>Special thanks to: <a href="https://chat.openai.com/" class="custom-link">
+											ChatGPT</a>
+										
 										</h5>
 									</header>
 									<p>
-										In graph theory, topological sorting, often referred to as topological ordering, is primarily 
-										employed to determine the sequence of nodes in a directed acyclic graph (DAG). 
-										In a DAG, vertices have interdependencies due to the existance of directed edges. 
-										For instance, given two vertices U and V, a directed edge (U, V) implies that V 
-										can be reached from U, while the reverse is not true - U cannot be reached from V. 
-										In this context, V is regarded to have a dependency on U. 
-										The topological order is essentially a linear arrangement of all the vertices within a DAG. 
-										It provides a systematic depiction of feasible sequences originating from certain vertices 
-										and concluding at others. <br />
-										
+										A graph, usually can be conceptually described and represented with ease, alongside a straightforward
+										illustration. When an algorithm is explained, the audience can see quite a good elaboration with a drawing
+										of a graph. A graph typically consists of two parts: (1) the node in the graph and (2) the relationships between
+										the nodes. In the blog: <a href="../blogs/Graph_topological_sorting.html" class="custom-link"> 
+											Kahn’s Algorithm for Topological Sorting</a> we simplified the modelling and implementation of a graph,
+										as the graph nodes are directly represented by integers, allowing them to be used as indices of an array. Based
+										on that, the relationships among them (a.k.a edges) can also be easily implemented. However, in many scenarios, a node
+										can have certain properies, such as its degree, or for instance we would like to also store
+										its incident nodes. Therefore, how should we represent these customized nodes, and to represent
+										the whole graph?
+										<br />									
 										<br />
+										Implementation-wise, we will use C++ as our preferred language to demonstrate how it can be done.
+										The core logic is to store a customized (or user-defined) node, which can be easily achieved by creating
+										a class, and also store the relationships with its incident nodes in the graph. This can be realized
+										by utilizing a dictionary (<code class="custom-code">std::unordered_map</code> and <code class="custom-code">std::map</code> in C++), having the node as key and the list
+										of its incident nodes as values:
+<pre><code class="language-cpp">
+struct Node{
+	// data and methods
+};
+std::unordered_map&lt;Node, std::list&lt;Node&gt;&gt; adjacencyLists;
+</code></pre>
+										We similarly create an adjacencyLists, and each element contains a node and a list conataining
+										all of its incident nodes. It seems to be pretty simple, yet if you try to compile it, you will 
+										possibly get compile errors:
+<pre><code class="language-console">
+error: call to implicitly-deleted default constructor of 'std::hash<Node>': _Hash() {}
+note: default constructor of 'hash<Node>' is implicitly deleted because base class '__enum_hash<Node>' has a deleted default constructor 
+struct _LIBCPP_TEMPLATE_VIS hash : public __enum_hash<_Tp>
+note: '__enum_hash' has been explicitly marked deleted here __enum_hash() = delete;
+error: static assertion failed due to requirement 'integral_constant<bool, false>::value': the specified hash does not meet the Hash requirements
+static_assert(__check_hash_requirements<_Key, _Hash>::value,
+</code></pre>
+
+
+
 										Now let's delve into some fundamental yet crucial concepts regarding a DAG:
 										<ol>
 											<li>A DAG contains at least one vertex with the indegree zero.</li>
