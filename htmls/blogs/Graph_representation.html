@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<link rel="stylesheet" href="../../assets/css/prism.css" />
+		<link rel="stylesheet" href="../../assets/css/mystyles.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../blog.html" class="logo"><strong>Blog</strong> <span>Fengyan Zhang</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../../index.html">Home</a></li>
+							<li><a href="../../aboutme.html">Aboutme</a></li>
+							<li><a href="../../htmls/projects.html">Projects</a></li>
+							<li><a href="../../htmls/experiences.html">Experiences</a></li>
+							<li><a href="../../htmls/blog.html">Blog</a></li>
+							<li><a href="../../htmls/fantasy.html">Fantasy</a></li>
+							<li><a href="../../contact.html">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h3>Kahn’s Algorithm for Topological Sorting*</h3>
+										<h5>*The content is intended for self-study and sharing, the original blog is: 
+											<a href="https://www.interviewkickstart.com/learn/kahns-algorithm-topological-sorting" class="custom-link">
+												INTERVIEW KICKSTART - Kahn’s Algorithm for Topological Sorting.</a>
+										</h5>
+									</header>
+									<p>
+										In graph theory, topological sorting, often referred to as topological ordering, is primarily 
+										employed to determine the sequence of nodes in a directed acyclic graph (DAG). 
+										In a DAG, vertices have interdependencies due to the existance of directed edges. 
+										For instance, given two vertices U and V, a directed edge (U, V) implies that V 
+										can be reached from U, while the reverse is not true - U cannot be reached from V. 
+										In this context, V is regarded to have a dependency on U. 
+										The topological order is essentially a linear arrangement of all the vertices within a DAG. 
+										It provides a systematic depiction of feasible sequences originating from certain vertices 
+										and concluding at others. <br />
+										
+										<br />
+										Now let's delve into some fundamental yet crucial concepts regarding a DAG:
+										<ol>
+											<li>A DAG contains at least one vertex with the indegree zero.</li>
+											<li>A DAG contains at least one vertex with the outdegree zero.</li>
+										</ol>
+
+										These two characteristics are derived from the term "acyclic" - signifying the absence of loops 
+										within the DAG. Consequently, there is always at least one origin vertex and one ending vertex. 
+										It's important to note that a DAG can comprise multiple disconnected components, 
+										meaning that there can be separate subgraphs within the graph that are not directly connected 
+										to each other. Each of these components is still a DAG, as long as they satisfy the two 
+										properties mentioned above.
+
+										<br />
+										<br />
+
+										Let us see an example:
+
+										<br />
+										<img src="../../images/blogs/Graph_top_sort.png" alt="alternatetext" style="width:600px;height:300px"><br />
+										
+										<br />
+										Directed edges: <i>{0, 1}, {0, 2}, {1, 3}, {1, 4}, {3, 4}, {3, 5}</i>
+
+										<br />
+										"in" represents "indegree"
+
+										<br />
+										<b>Order of removal</b>: <i>0, 1, 2, 3, 4, 5</i>
+
+										<br />
+										<b>A possible topological order</b>: <i>0, 1, 2, 3, 4, 5</i>
+
+										<br />
+										Note that the sequence is not the only possible topological order. 
+										For instance, <i>0, 2, 1, 3, 4, 5</i> is also a valid topological order.
+										
+										<br />
+										The process of Kahn's algorithm:
+
+										<div class="image-grid">
+											<div class="image-container">
+											  <img src="../../images/blogs/Graph_top_sort_1.png" alt="Step 1">
+											  <p class="image-title">Step 1: remove node 0 (with indegree = 0) and its outward edges.
+												Update the indegree of the deleted edges’ destination nodes (1 and 2).
+											  </p>
+											</div>
+											<div class="image-container">
+											  <img src="../../images/blogs/Graph_top_sort_2.png" alt="Step 2">
+											  <p class="image-title">Step 2: remove node 1 and 2, alongside the outward edges. 
+												Update the indegree of node 3 and 4. 
+											  </p>
+											</div>
+											<div class="image-container">
+										      <img src="../../images/blogs/Graph_top_sort_3.png" alt="Step 3">
+											  <p class="image-title">Step 3: remove node 3 and its outward edges. 
+												Update the indegree of node 4 and 5.
+											  </p>
+											</div>
+											<div class="image-container">
+											  <img src="../../images/blogs/Graph_top_sort_4.png" alt="Step 4">
+											  <p class="image-title">Step 4: remove node 4 and 5.</p>
+											</div>
+										</div>
+
+										Now, with these considerations in mind, let's delve into the implementation details.
+										To begin, we will need to summarize specific steps in order to write pseudocode
+										and then proceed with the actual implementation.
+
+										<br />
+
+										Given a DAG, denoted as G and represented with an adjacency list, the algorithm can be 
+										summarized as follows:
+
+										<ul>
+											<li>Calculate the indegree for all nodes in G.</li>
+											<li>Identify a node with an indegree of 0, indicating no incoming edges.</li>
+											<li>Remove the identified node from G and add it to the topological ordering.</li>
+											<li>Remove the outgoing edges from the removed node in G.</li>
+											<li>Decrement the indegree of the connected destination nodes (those connected by the edges removed in the previous step).</li>
+											<li>Repeat these steps until no nodes are left with zero indegree, signifying that either
+												all nodes have been traversed or a cycle has been encountered.
+										</ul>
+
+										After completing these steps, check if all elements are present in the sorted order. If this is the case, a valid topological ordering has been obtained. Otherwise, no topological ordering is possible.
+
+
+
+					
+<pre><code class="language-cpp"> <!-- <pre></pre> is used for preformatted where the original format is crucial (formatting exactly as entered) -->
+// pseudo code for an example
+
+Kahn_topological_sort(Graph G)
+{	
+	For each node in G{
+		Find and populate indegree[node]; // get the indegree for all the nodes in G
+	}
+
+	Create a stack or queue; // auxiliary data structure - as a container
+
+	Add nodes with indegree 0 to the queue;
+
+	while(node U with indegree 0 exists in the queue){
+		Remove U from the queue;
+		Remove all its outgoing edges (U, Vi) from G;
+
+		For destination vertices Vi which had their incoming edges removed{
+			indegree[Vi] -= 1;
+		}
+
+		Add new nodes with indegree 0 to the queue;
+	}
+
+	// determine if a topological ordering has been found
+	if(elements sorted = all elements)
+		return true or print nodes in topologically sorted order;
+	else 
+		return false or prompt that no topological ordering exists (e.g. there exists rings in G)
+
+}
+</code></pre>
+										<br />
+										Now let's implement it using C++, the very first thing is to design a data structure to store a graph.
+										<br />
+										For the purpose of simplfying the code, we might as well consider representing the graph nodes using integers, numbering from 0 to a specific value. 
+										
+										We can then use these integers as array indices. 
+										Consider the following example:
+<pre><code class="language-cpp">
+node_array[0] = {1, 2};
+</code></pre>
+										In this representation, it signifies that there are two directed edges: <i>0 -> 1, 0 -> 2</i>
+										<br />
+										To store our graph, we can make use of a 2D array, often referred to as an <i>adjacencyList</i>
+<pre><code class="language-cpp">
+vector&lt;vector&lt;int&gt;&gt; adjacencyList;
+</code></pre>
+										
+										As illustrated above, each element in the adjacencyList contains a 1D array, 
+										representing the destination nodes connected by directed edges originating from 
+										the current node. For instance, <code class="custom-code">adjacencyList[0]</code> 
+										represents a 1D array containing the nodes incident to node 0.
+										<br />
+										The overall code is as follows:
+<pre><code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using std::vector;
+using std::queue;
+		
+// Graph class - store the input graph
+		
+class Graph{
+public:
+	Graph(int NumberOfNodes) : m_numberofNodes(NumberOfNodes){
+		m_adjacencyList.resize(NumberOfNodes);
+		m_inDegree.resize(NumberOfNodes, 0);	    
+	}
+			
+	void add_directed_edges(int src, int dest){
+		m_adjacencyList[src].emplace_back(dest);
+	}
+
+	// main function: topological sort
+	bool topological_sort(vector&lt;int&gt;& sorted)
+	{
+	    auto indegree_copy = m_inDegree; // save a copy of the indegree vector
+	    
+	    // store all the nodes with no incoming edges
+	    queue<int> nodes_with_zero_indegree;
+	    for(int i = 0; i < m_numberofNodes; ++i)
+	    {
+	        if(m_inDegree[i] == 0)nodes_with_zero_indegree.push(i);
+	    }
+	    
+	    // process - while the queue is not empty
+	    while(!nodes_with_zero_indegree.empty())
+	    {
+	        auto current_zero_node = nodes_with_zero_indegree.front();
+	        nodes_with_zero_indegree.pop(); // delete the node with zero indegree
+	        sorted.emplace_back(current_zero_node); // add it to the sorted list
+	        
+	        // alter the graph: delete the incident edges and update the indegree
+	        // of the incident nodes connected to current_zero_node
+	        for(auto const& dest_node : m_adjacencyList[current_zero_node])
+	        {
+	            // delete the directed edge: current_zero_node -> dest_node
+	            // meaning the indegree of the dest node decrements by 1
+	            --m_inDegree[dest_node];
+	            
+	            // if the updated indegree of dest node is now zero
+	            // add it to the nodes_with_zero_indegree queue
+	            if(m_inDegree[dest_node] == 0) nodes_with_zero_indegree.push(dest_node);
+	        } // end for
+	        
+	    } // end while: while the queue is not empty
+	    
+	    // a cycle was encountered - if the sorting is done but not all input nodes have been sorted
+	    if((int)sorted.size() != m_numberofNodes)return false;
+	    
+	    // successfully sorted
+	    return true; 
+	    
+	}
+			
+	void print_graph() {
+		for(int i = 0; i < m_adjacencyList.size(); ++i)
+		{
+			if(m_adjacencyList[i].size() != 0)
+			{   
+				std::cout << "Node " << i << " -> ";
+				for(const auto& node : m_adjacencyList[i])
+				{
+					std::cout << node << " ";
+				}
+				std::cout << std::endl;
+			}
+		}
+	}   
+protected:
+	int m_numberofNodes;
+	vector&lt;vector&lt;int&gt;&gt; m_adjacencyList;
+    vector&lt;int&gt; m_inDegree;   
+};
+		
+int main() {
+    int n = 6;
+    
+    Graph graph(n);
+    graph.add_directed_edges(0, 1);
+    graph.add_directed_edges(0, 2);
+    graph.add_directed_edges(1, 2);
+    graph.add_directed_edges(2, 3);
+    graph.add_directed_edges(1, 4);
+    graph.add_directed_edges(5, 3);
+    graph.add_directed_edges(4, 5);
+    
+    graph.print_graph();
+    
+    vector&lt;int&gt; sorted;
+    sorted.reserve(n);
+    
+    if(graph.topological_sort(sorted)){
+        std::cout << "sorted done, the topological ordering is: " << std::endl;
+        for(auto const& node : sorted)std::cout << node << " ";
+        std::cout << std::endl;
+    }else{
+        std::cout << "topological sorting is not possible as the graph is not acyclic" << std::endl;
+    }
+
+	return 0;
+}
+</code></pre>
+									</p>
+								</div>
+							</section>
+					</div>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Fengyan Zhang</li><li>All rights reserved.</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../assets/js/prism.js"></script>
+
+	</body>
+</html>
