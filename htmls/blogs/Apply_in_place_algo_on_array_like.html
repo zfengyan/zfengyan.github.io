@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<link rel="stylesheet" href="../../assets/css/prism.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../blog.html" class="logo"><strong>Blog</strong> <span>Fengyan Zhang</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../../index.html">Home</a></li>
+							<li><a href="../../aboutme.html">Aboutme</a></li>
+							<li><a href="../../htmls/projects.html">Projects</a></li>
+							<li><a href="../../htmls/experiences.html">Experiences</a></li>
+							<li><a href="../../htmls/blog.html">Blog</a></li>
+							<li><a href="../../htmls/fantasy.html">Fantasy</a></li>
+							<li><a href="../../contact.html">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h3>Apply in-place algorithms on array-like containers</h3>
+									</header>
+									<p>
+										During the development of an algorithm, we may encounter situations in which some changes towards certain data structures (e.g. an array or similar containers) need to happen in-place. Sometimes such approach would bring convenience to the developing process, however there are certain curcumstances that we need to pay attention to:
+
+										1. The developing algorithm is expected to be running in a multi-threaded environment. The hitch is very easy to be ignored: while you are altering the array, other threads may need to access the array as well and might not expect it to be modified during the process.
+
+										2. The array needs to be used later, or by another thread once the lock has been released. (About thread and the lock: Chernel youtube video). In this situation changing the content of the array on-the-fly could cause potential problems.
+
+										Overall, if we are developing a new algorithm inside a large project, say, we are adding a new function to some code base. It is generally not a good idea to modify the content of the input as the input may be used later somewhere else inside the code base. 
+
+										But for own development, it might be fine. For example, sometimes we pass the vector by reference (more efficient) and inside the function we perform certain operations on that vector without the need to copy the entire vector.
+
+										(add a code snippet)
+										
+									</p>
+								</div>
+							</section>
+					</div>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Fengyan Zhang</li><li>All rights reserved.</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+			<script src="../../assets/js/prism.js"></script>
+
+	</body>
+</html>
