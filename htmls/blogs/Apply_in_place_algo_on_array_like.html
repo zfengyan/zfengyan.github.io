@@ -48,18 +48,26 @@
 										<h3>Apply in-place algorithms on array-like containers</h3>
 									</header>
 									<p>
-										During the development of an algorithm, we may encounter situations in which some changes towards certain data structures (e.g. an array or similar containers) need to happen in-place. Sometimes such approach would bring convenience to the developing process, however there are certain curcumstances that we need to pay attention to:
+										During the development of an algorithm, we may encounter situations where changes to certain data structures (e.g., an array or similar containers) need to happen in-place. While this approach can offer convenience during the development process, there are certain circumstances that require attention:
+										<br /><br />
 
-										1. The developing algorithm is expected to be running in a multi-threaded environment. The hitch is very easy to be ignored: while you are altering the array, other threads may need to access the array as well and might not expect it to be modified during the process.
+										1. If the developing algorithm is expected to run in a multi-threaded environment, it's crucial to consider potential issues. The hitch is easily overlooked: while you are altering the array, other threads may need to access the array as well and might not expect it to be modified during the process.<br /><br />
 
-										2. The array needs to be used later, or by another thread once the lock has been released. (About thread and the lock: Chernel youtube video). In this situation changing the content of the array on-the-fly could cause potential problems.
+										2. Another consideration arises when the array needs to be used later, or by another thread, once the lock has been released (For more information on threading and locking, refer to Chernel's YouTube video). In such situations, changing the content of the array on-the-fly could lead to potential problems.<br /><br />
 
-										Overall, if we are developing a new algorithm inside a large project, say, we are adding a new function to some code base. It is generally not a good idea to modify the content of the input as the input may be used later somewhere else inside the code base. 
+										In general, when developing a new algorithm within a large project—let's say we are adding a new function to an existing codebase—it's not advisable to modify the content of the input. This caution stems from the possibility that the input may be used elsewhere within the codebase at a later time.<br /><br />
 
-										But for own development, it might be fine. For example, sometimes we pass the vector by reference (more efficient) and inside the function we perform certain operations on that vector without the need to copy the entire vector.
+										However, for personal development purposes, such modifications might be acceptable. For instance, sometimes we pass a vector by reference (which is more efficient), and inside the function, we perform certain operations on that vector without needing to copy the entire vector.
 
-										(add a code snippet)
-										
+<pre><code class="language-cpp">
+class Solution {
+public:
+    int timeRequiredToBuy(vector<int>& tickets, int k) {
+		int a = k;
+		return a;
+    }
+};
+</code></pre>									
 									</p>
 								</div>
 							</section>
