@@ -193,7 +193,9 @@ img {
     align-items: center;
 }
 
-/* Left: Stellar Navigation System */
+/* ---------- Stellar Navigation System ---------- */
+
+/* Container for the entire stellar system */
 .portrait-wrap {
     display: flex;
     align-items: center;
@@ -211,7 +213,8 @@ img {
     justify-content: center;
 }
 
-/* The central star (portrait) */
+/* -------------------------- Central Star (Portrait) -------------------------- */
+
 .portrait-frame {
     position: relative;
     padding: 0.75rem;
@@ -256,7 +259,8 @@ img {
     filter: blur(0) brightness(1);
 }
 
-/* Orbital paths */
+/* -------------------------- Orbital Paths -------------------------- */
+
 .orbit {
     position: absolute;
     border: 1px solid rgba(56, 189, 248, 0.15);
@@ -279,15 +283,16 @@ img {
     height: 380px;
 }
 
-/* Planet links container */
+/* -------------------------- Planet Navigation Links -------------------------- */
+
+/* Container for all planet links */
 .planet-links {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* Removed animation - keeping it static */
 }
 
-/* Individual planets */
+/* Individual planet wrapper */
 .planet {
     position: absolute;
     left: 50%;
@@ -295,6 +300,7 @@ img {
     pointer-events: all;
 }
 
+/* Planet link styling */
 .planet a {
     display: flex;
     flex-direction: column;
@@ -305,19 +311,7 @@ img {
     position: relative;
 }
 
-/* The dot itself */
-.planet a::before {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #67e8f9;
-    box-shadow: 0 0 12px rgba(103, 232, 249, 0.6);
-    transition: all 0.3s ease;
-}
-
-/* The label text - always visible, horizontal */
+/* Planet label text (always visible, horizontal) */
 .planet a::after {
     content: attr(data-label);
     font-size: 0.85rem;
@@ -329,19 +323,7 @@ img {
     padding-bottom: 0.35rem;
 }
 
-/* Color change on hover */
-.planet a:hover::after {
-    color: #67e8f9;
-}
-
-/* Dot hover effect */
-.planet a:hover::before {
-    background: #38bdf8;
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
-    transform: scale(1.5);
-}
-
-/* Position each planet on different orbits - with counter-rotation for horizontal text */
+/* Position each planet on different orbits with counter-rotation for horizontal text */
 .planet:nth-child(1) {
     transform: translate(-50%, -50%) rotate(0deg) translateX(130px) rotate(0deg);
 }
@@ -370,35 +352,30 @@ img {
     transform: translate(-50%, -50%) rotate(306deg) translateX(130px) rotate(-306deg);
 }
 
-/* planet types (active) */
+/* -------------------------- Social Planet Styles (Active) -------------------------- */
+
+/* Social planet dot appearance */
 .planet.social a::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
     background: #a5b4fc;
     box-shadow: 0 0 12px rgba(165, 180, 252, 0.6);
+    transition: all 0.3s ease;
 }
 
+/* Social planet dot hover effect */
 .planet.social a:hover::before {
     background: #818cf8;
     box-shadow: 0 0 20px rgba(129, 140, 248, 0.8);
     transform: scale(1.5);
 }
 
+/* Social planet label hover effect */
 .planet.social a:hover::after {
     color: #a5b4fc;
-}
-
-.planet.nav a::before {
-    background: #67e8f9;
-    box-shadow: 0 0 12px rgba(103, 232, 249, 0.6);
-}
-
-.planet.nav a:hover::before {
-    background: #38bdf8;
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
-    transform: scale(1.5);
-}
-
-.planet.nav a:hover::after {
-    color: #67e8f9;
 }
 
 /* Right: Text intro */
