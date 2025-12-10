@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Projects - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Projects by Fengyan Zhang - Geomatics and BIM research." />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1 class="projects-title">Projects</h1>
+            <p class="projects-subtitle">Main projects primarily developed during my MSc studies in Geomatics</p>
+        </header>
+
+        <!-- Projects Grid -->
+        <main class="shell">
+            <div class="projects-grid">
+                <!-- Project 1: BIMConvertToGeo -->
+                <article class="project-card">
+                    <h3 class="project-title">BIMConvertToGeo</h3>
+                    <p class="project-description">
+                        Convert a building information modeling (BIM) model, specifically an industry foundation
+                        classes (IFC) file, into a CityJSON file.
+                    </p>
+                    <a href="https://github.com/zfengyan/BIMConvertToGeo" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 2: geoCFD -->
+                <article class="project-card">
+                    <h3 class="project-title">geoCFD</h3>
+                    <p class="project-description">
+                        Preprocess the geometry for CFD simulation - remove internal faces between adjacent buildings.
+                        Developed as the Nef Polyhedra method for the MSc Geomatics Synthesis Project facesBgone.
+                    </p>
+                    <a href="https://github.com/zfengyan/geoCFD" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 3: Reconstruct 3D Geometry -->
+                <article class="project-card">
+                    <h3 class="project-title">Reconstruct 3D Geometry</h3>
+                    <p class="project-description">
+                        3D geometry reconstruction from a set of images based on the open-source project - Easy3D.
+                    </p>
+                    <a href="https://github.com/zfengyan/Reconstruct_3D_Geometry" target="_blank"
+                        rel="noopener noreferrer" class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 4: Spatial interpolation -->
+                <article class="project-card">
+                    <h3 class="project-title">Spatial Interpolation</h3>
+                    <p class="project-description">
+                        Implementation of Nearest Neighbor (NN) / Inverse Distance Weighting (IDW) / Triangulated
+                        Irregular Network (TIN) and Laplace interpolation.
+                    </p>
+                    <a href="https://github.com/zfengyan/Spatial_interpolation" target="_blank"
+                        rel="noopener noreferrer" class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 5: LCP Runoff modeling -->
+                <article class="project-card">
+                    <h3 class="project-title">LCP Runoff Modeling</h3>
+                    <p class="project-description">
+                        Implementation of the least cost path algorithm (LCP) for calculating flow direction and flow
+                        accumulation.
+                    </p>
+                    <a href="https://github.com/zfengyan/LCP_Runoff_modelling" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 6: Camera Calibration -->
+                <article class="project-card">
+                    <h3 class="project-title">Camera Calibration</h3>
+                    <p class="project-description">
+                        Implementation of performing camera calibration algorithm based on the open-source project -
+                        Easy3D.
+                    </p>
+                    <a href="https://github.com/zfengyan/Camera_Calibration" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 7: Kmeans clustering -->
+                <article class="project-card">
+                    <h3 class="project-title">K-means Clustering</h3>
+                    <p class="project-description">
+                        Implementation of K-means clustering classification based on the point cloud data.
+                    </p>
+                    <a href="https://github.com/zfengyan/Kmeans_clustering" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 8: Ground Filtering -->
+                <article class="project-card">
+                    <h3 class="project-title">Ground Filtering</h3>
+                    <p class="project-description">
+                        Implementation of Cloth Simulation Filter algorithm (also with verlet integration) based on the
+                        point cloud data.
+                    </p>
+                    <a href="https://github.com/zfengyan/Ground_Filtering" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+
+                <!-- Project 9: CityJSON -->
+                <article class="project-card">
+                    <h3 class="project-title">CityJSON</h3>
+                    <p class="project-description">
+                        Implementation of calculating building volumes, number of building floors, area, and
+                        orientation of roof surfaces based on CityJSON files.
+                    </p>
+                    <a href="https://github.com/zfengyan/CityJSON" target="_blank" rel="noopener noreferrer"
+                        class="project-link">
+                        Learn more →
+                    </a>
+                </article>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
