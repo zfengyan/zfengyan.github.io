@@ -323,19 +323,15 @@ img {
     font-size: 0.85rem;
     color: #d1d5db;
     white-space: nowrap;
-    transition: color 0.25s ease, background-size 0.25s ease;
+    transition: color 0.25s ease;
     position: relative;
     display: inline-block;
     padding-bottom: 0.35rem;
-    background: linear-gradient(to right, #67e8f9, #38bdf8) no-repeat;
-    background-size: 0% 1px;
-    background-position: left bottom;
 }
 
-/* Underline effect on hover */
+/* Color change on hover */
 .planet a:hover::after {
     color: #67e8f9;
-    background-size: 100% 1px;
 }
 
 /* Dot hover effect */
@@ -374,7 +370,7 @@ img {
     transform: translate(-50%, -50%) rotate(306deg) translateX(130px) rotate(-306deg);
 }
 
-/* Different colors for different planet types */
+/* planet types (active) */
 .planet.social a::before {
     background: #a5b4fc;
     box-shadow: 0 0 12px rgba(165, 180, 252, 0.6);
@@ -388,7 +384,6 @@ img {
 
 .planet.social a:hover::after {
     color: #a5b4fc;
-    background-size: 100% 1px;
 }
 
 .planet.nav a::before {
@@ -404,7 +399,6 @@ img {
 
 .planet.nav a:hover::after {
     color: #67e8f9;
-    background-size: 100% 1px;
 }
 
 /* Right: Text intro */
