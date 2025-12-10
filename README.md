@@ -1,3 +1,5 @@
+### Domain
+[Squarespace](https://www.squarespace.com/)
 
 ### HTML Structure
 ```html
