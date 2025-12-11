@@ -68,7 +68,7 @@
                             <a href="#about" data-label="About"></a>
                         </div>
                         <div class="planet social">
-                            <a href="#contact" data-label="Contact"></a>
+                            <a href="#" data-label="Contact"></a>
                         </div>
                         <div class="planet social">
                             <a href="https://www.linkedin.com/in/fengyan-zhang-224577241/" target="_blank"
@@ -174,7 +174,7 @@
 
             <p>
                 © <span id="year"></span> Fengyan Zhang ·
-                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+                <a href="#" id="footer-contact-trigger">email</a>
             </p>
         </footer>
     </div>
@@ -183,8 +183,44 @@
     <!-- JAVASCRIPT - Dynamic Content & Interactions                 -->
     <!-- ============================================================ -->
 
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h2 class="modal-title">Get in Touch</h2>
+            <p class="modal-text">Feel free to reach out for collaborations or just a chat.</p>
+            <div class="email-container">
+                <a href="mailto:fengyan_zhang0320@outlook.com" class="email-link">fengyan_zhang0320@outlook.com</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Modal Logic
+        const modal = document.getElementById("contact-modal");
+        const contactTrigger = document.querySelector('a[data-label="Contact"]');
+        const footerContactTrigger = document.getElementById("footer-contact-trigger");
+        const closeBtn = document.getElementById("modal-close");
+
+        function openModal(e) {
+            e.preventDefault();
+            modal.classList.add("active");
+        }
+
+        function closeModal() {
+            modal.classList.remove("active");
+        }
+
+        if (contactTrigger) contactTrigger.addEventListener("click", openModal);
+        if (footerContactTrigger) footerContactTrigger.addEventListener("click", openModal);
+        if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+        // Close on click outside
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
     </script>
 </body>
 
