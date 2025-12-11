@@ -541,10 +541,31 @@ img {
 }
 
 .projects-subtitle {
-    font-size: 0.95rem;
-    color: #a5b4fc;
+    font-size: 0.9rem;
+    color: #d1d5db;
     line-height: 1.6;
+    margin-bottom: 1rem;
 }
+
+.projects-subtitle p {
+    margin-bottom: 1rem;
+}
+
+.projects-subtitle p:last-child {
+    margin-bottom: 0;
+}
+
+.paper-link {
+    color: #a5b4fc;
+    text-decoration: none;
+    transition: color 0.25s ease;
+    font-weight: 500;
+}
+
+.paper-link:hover {
+    color: #818cf8;
+}
+
 
 /* Projects grid layout */
 .projects-grid {
