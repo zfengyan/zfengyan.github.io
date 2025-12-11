@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Blog posts by Fengyan Zhang - Visualized as a Delaunay Network." />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Load D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1 class="projects-title">Blog</h1>
+            <p class="projects-subtitle">
+                Thoughts and notes connected in a network. Hover to explore, click to read.
+            </p>
+        </header>
+
+        <!-- Main Visualization Content -->
+        <!-- Using a full-width container or constrained shell depending on desired look. 
+             "shell" keeps it aligned with other pages. -->
+        <main class="shell" style="position: relative; height: 600px;">
+            <div id="delaunay-container"></div>
+            <div id="blog-tooltip" class="blog-tooltip" style="opacity: 0;"></div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // --- D3.js Delaunay Visualization ---
+
+        const container = document.getElementById("delaunay-container");
+        const width = container.clientWidth;
+        const height = 600; // Fixed height for the visualization area
+
+        const svg = d3.select("#delaunay-container")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background", "rgba(15, 23, 42, 0.3)") // Slight dark background for contrast
+            .style("border-radius", "12px")
+            .style("border", "1px solid rgba(148, 163, 184, 0.2)");
+
+
+        // Sample Blog Data (Nodes)
+        // In a real scenario, these could be fetched from a JSON file.
+        const blogPosts = [
+            { id: 1, title: "Geomatics Insight #1", link: "#" },
+            { id: 2, title: "Understanding BIM", link: "#" },
+            { id: 3, title: "3D Cities & Data", link: "#" },
+            { id: 4, title: "Python for Geo", link: "#" },
+            { id: 5, title: "Notes on Sensors", link: "#" },
+            { id: 6, title: "Point Clouds 101", link: "#" },
+            { id: 7, title: "The Future of Maps", link: "#" },
+            { id: 8, title: "Algorithmic Design", link: "#" },
+            { id: 9, title: "Urban Flows", link: "#" },
+            { id: 10, title: "Reflections on MSc", link: "#" },
+            { id: 11, title: "Conference Notes", link: "#" },
+            { id: 12, title: "Delaunay Magic", link: "#" },
+            { id: 13, title: "Coding & Space", link: "#" },
+            { id: 14, title: "Visualizing Data", link: "#" },
+            { id: 15, title: "Hydraulic Monitoring", link: "#" }
+        ];
+
+        // Generate random positions for the nodes within the SVG
+        // Leaving some padding so nodes aren't cut off
+        const padding = 50;
+        blogPosts.forEach(post => {
+            post.x = Math.random() * (width - 2 * padding) + padding;
+            post.y = Math.random() * (height - 2 * padding) + padding;
+        });
+
+        // Compute Delaunay Triangulation
+        // d3.Delaunay requires an array of [x, y] points
+        const points = blogPosts.map(p => [p.x, p.y]);
+        const delaunay = d3.Delaunay.from(points);
+        // voronoi could be used for interactivity zones, but we just need edges (triangulation)
+        // renderPoints returns an array of coordinates for lines
+
+        // --- Drawing ---
+
+        // 1. Draw Edges (Triangulation lines)
+        // d3.Delaunay.render() draws to a context. For SVG, we can get the path string.
+        // However, standard d3 usage often draws lines individually or as a single path.
+        // Let's draw detailed lines to allow per-edge styling if needed, 
+        // or just a single path for performance/simplicity.
+
+        // Simple approach: Use one path for all edges
+        const pathData = delaunay.render();
+
+        svg.append("path")
+            .attr("d", pathData)
+            .attr("fill", "none")
+            .attr("stroke", "rgba(165, 180, 252, 0.4)") // #a5b4fc with low opacity
+            .attr("stroke-width", 1);
+
+
+        // 2. Draw Nodes (Blog Posts)
+        const nodes = svg.selectAll("circle")
+            .data(blogPosts)
+            .enter()
+            .append("circle")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", 6)
+            .attr("fill", "#a5b4fc") // purple dots
+            .style("cursor", "pointer")
+            .attr("stroke", "rgba(15, 23, 42, 0.8)")
+            .attr("stroke-width", 2);
+
+        // --- Interaction ---
+
+        const tooltip = d3.select("#blog-tooltip");
+
+        nodes.on("mouseover", function (event, d) {
+            // Highlight node
+            d3.select(this)
+                .attr("r", 10)
+                .attr("fill", "#a5b4fc"); // Purple on hover
+
+            // Show Tooltip
+            tooltip
+                .style("opacity", 1)
+                .html(d.title)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY - 10) + "px");
+        })
+            .on("mousemove", function (event) {
+                tooltip
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - 10) + "px");
+            })
+            .on("mouseout", function () {
+                // Reset node
+                d3.select(this)
+                    .attr("r", 6)
+                    .attr("fill", "#67e8f9"); // Back to Cyan
+
+                // Hide Tooltip
+                tooltip.style("opacity", 0);
+            })
+            .on("click", function (event, d) {
+                // Navigate to blog link
+                // For now, these are '#' but in future they would be 'posts/post-1.html'
+                window.location.href = d.link;
+            });
+
+        // 3. (Optional) Simple animation to make it "live"
+        //    Could oscillate points slightly, but requires re-computing delaunay every frame.
+        //    For now, static interaction is cleaner and more performant.
+
+    </script>
+</body>
+
+</html>
