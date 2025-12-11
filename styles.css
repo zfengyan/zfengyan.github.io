@@ -677,31 +677,31 @@ img {
     }
 
     .planet:nth-child(1) {
-        transform: translate(-50%, -50%) rotate(0deg) translateX(100px);
+        transform: translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg);
     }
 
     .planet:nth-child(2) {
-        transform: translate(-50%, -50%) rotate(51deg) translateX(125px);
+        transform: translate(-50%, -50%) rotate(51deg) translateX(125px) rotate(-51deg);
     }
 
     .planet:nth-child(3) {
-        transform: translate(-50%, -50%) rotate(102deg) translateX(150px);
+        transform: translate(-50%, -50%) rotate(102deg) translateX(150px) rotate(-102deg);
     }
 
     .planet:nth-child(4) {
-        transform: translate(-50%, -50%) rotate(153deg) translateX(100px);
+        transform: translate(-50%, -50%) rotate(153deg) translateX(100px) rotate(-153deg);
     }
 
     .planet:nth-child(5) {
-        transform: translate(-50%, -50%) rotate(204deg) translateX(125px);
+        transform: translate(-50%, -50%) rotate(204deg) translateX(125px) rotate(-204deg);
     }
 
     .planet:nth-child(6) {
-        transform: translate(-50%, -50%) rotate(255deg) translateX(150px);
+        transform: translate(-50%, -50%) rotate(255deg) translateX(150px) rotate(-255deg);
     }
 
     .planet:nth-child(7) {
-        transform: translate(-50%, -50%) rotate(306deg) translateX(100px);
+        transform: translate(-50%, -50%) rotate(306deg) translateX(100px) rotate(-306deg);
     }
 
     .portrait {
