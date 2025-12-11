@@ -514,8 +514,8 @@ img {
 /* Projects page header */
 .projects-header {
     padding-top: 2rem;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
+    padding-bottom: 0rem;
+    margin-bottom: 0rem;
 }
 
 .back-link {
