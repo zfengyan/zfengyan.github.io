@@ -7,6 +7,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="The Frontier by Fengyan Zhang - Concepts, Notes, and Ideas" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Image Gallery Styles */
+        .image-gallery {
+            padding: 2rem 0;
+        }
+
+        .gallery-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            max-height: 300px;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            cursor: default;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .close-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .thumbnail {
+                height: 150px;
+            }
+
+            .close-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -25,11 +149,34 @@
         </header>
 
         <!-- Main Visualization Content -->
-        <!-- Using a full-width container or constrained shell depending on desired look. 
-             "shell" keeps it aligned with other pages. -->
-        <main class="shell" style="position: relative; height: 600px;">
-            <div id="main-container"></div>
-            <div id="blog-tooltip" class="blog-tooltip" style="opacity: 0;"></div>
+        <main class="shell">
+            <section class="image-gallery">
+                <h2 class="gallery-title">Concept from <i>The Frontier</i>: Protoplanet Embryo Initiative</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-0.JPG">
+                        <img src="images/Protoplanet_Embryo_Initiative-images-0.JPG"
+                            alt="Protoplanet Embryo Initiative - Image 1" class="thumbnail">
+                    </div>
+                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-1.JPG">
+                        <img src="images/Protoplanet_Embryo_Initiative-images-1.JPG"
+                            alt="Protoplanet Embryo Initiative - Image 2" class="thumbnail">
+                    </div>
+                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-2.JPG">
+                        <img src="images/Protoplanet_Embryo_Initiative-images-2.JPG"
+                            alt="Protoplanet Embryo Initiative - Image 3" class="thumbnail">
+                    </div>
+                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-3.JPG">
+                        <img src="images/Protoplanet_Embryo_Initiative-images-3.JPG"
+                            alt="Protoplanet Embryo Initiative - Image 4" class="thumbnail">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lightbox Modal -->
+            <div id="lightbox" class="lightbox">
+                <button id="close-btn" class="close-btn" aria-label="Close lightbox">×</button>
+                <img id="lightbox-image" src="" alt="" class="lightbox-image">
+            </div>
         </main>
 
         <!-- Footer -->
@@ -42,7 +189,77 @@
     </div>
 
     <script>
+        // Constants for close button visibility
+        const CLOSE_BUTTON_PROXIMITY_THRESHOLD = 150; // pixels from top-right corner
 
+        // DOM elements
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const closeBtn = document.getElementById('close-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        // Open lightbox when thumbnail is clicked
+        function openLightbox(imageSrc) {
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            closeBtn.classList.remove('visible');
+            document.body.style.overflow = ''; // Restore scrolling
+            // Clear image source after animation completes
+            setTimeout(() => {
+                lightboxImage.src = '';
+            }, 300);
+        }
+
+        // Show close button when mouse is near upper-right corner
+        function handleMouseMove(event) {
+            const distanceFromRight = window.innerWidth - event.clientX;
+            const distanceFromTop = event.clientY;
+
+            if (distanceFromRight < CLOSE_BUTTON_PROXIMITY_THRESHOLD &&
+                distanceFromTop < CLOSE_BUTTON_PROXIMITY_THRESHOLD) {
+                closeBtn.classList.add('visible');
+            } else {
+                closeBtn.classList.remove('visible');
+            }
+        }
+
+        // Add click event to each gallery item
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imageSrc = item.dataset.image;
+                openLightbox(imageSrc);
+            });
+        });
+
+        // Close button click handler
+        closeBtn.addEventListener('click', closeLightbox);
+
+        // Click outside image to close
+        lightbox.addEventListener('click', (event) => {
+            // Close only if clicking on the lightbox background, not the image
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Track mouse movement for close button visibility
+        lightbox.addEventListener('mousemove', handleMouseMove);
+
+        // Close on Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        // Update footer year
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 
