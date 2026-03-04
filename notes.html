@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Notes - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Notes by Fengyan Zhang" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Notes page — scoped styles */
+        .notes-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .note-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid rgba(165, 180, 252, 0.5);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .note-quote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .note-source {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: #6b7280;
+            text-align: left;
+            padding-left: 0.25rem;
+        }
+
+        .note-source-cn {
+            display: block;
+            margin-top: 0.15rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1 class="projects-title">Notes</h1>
+            <div class="projects-subtitle">
+                <p>
+                    Some AHA moments while reading ...
+                </p>
+            </div>
+        </header>
+
+        <!-- notes -->
+        <main class="notes-section shell">
+            <div class="note-entry">
+                <p class="note-quote">"People read a great deal, but they do not read skillfully written and edited text
+                    as a part of daily life. Of literary readers there may be precious few, but the computer and the
+                    internet have made writers of all the generations present and to come. To write emails, messages,
+                    posts, tweets, and blogs is all to the good. To write a grammatically accurate post, an alliterative
+                    tweet, a metaphorical blog entry, will salvage just a little of our culture. To recognize the tools
+                    of grammar, alliteration, and metaphor will salvage a little more."</p>
+                <p class="note-quote">
+                    "人们喜爱阅读，但不会把阅读构思巧妙、精雕细琢的文本作为日常生活的一部分。虽然阅读文学作品的人少之又少，但电脑和互联网使所有年代的作家得以存在，而且持续产生。写邮件、发消息、发帖子、发推特、发博客都是写作的福音。写一个语法精准的帖子、一则押韵的推特、一篇富含隐喻文采的博客都对挽救我们的文化有所裨益。认识一些语法、押韵和隐喻的技巧将更加有助于挽救我们的文化。"
+                </p>
+            </div>
+
+            <div class="note-entry">
+                <p class="note-quote">"In Sapiens: A Brief History of Humankind, Yuval Noah Harari points out that it is
+                    not language itself but the related capacity to imagine what is not immediately present that
+                    distinguishes the human species. To imagine what is not immediately present allows us spirituality,
+                    nationhood, commerce, and law, and it is of course the essence of story. To write better and better
+                    stories may promote cooperation, gender equality, and the cementing of social bonds. If an aspiring
+                    writer has natural talent, so much the better. If she gets published, even paid— wonderful. Her
+                    mother is probably right that she'll need a day job. She may even find one with her literary skills,
+                    in PR, marketing, or law. (My best friend in college, hoping to break into journalism, ended up as
+                    the first female chief justice of the Supreme Court of New York . . .) But in any case, it is good
+                    for a full-blooded life and good for the culture that human beings should continue to study the
+                    craft of fiction."</p>
+                <p class="note-quote">"在《人类简史》（Sapiens：A Brief History of Humankind）中，尤瓦尔·诺亚·赫拉利(Yuval Noah
+                    Harari)指出，区分人种的不是语言，而是能够对不在现场的事物进行想象的能力。对不在现场的事物进行想象，使我们拥有了灵性、国家意识、商业和法律，想象对故事而言是不可或缺的。写出越来越好的故事，能够促进合作、性别平等和巩固社会关系。如果一个作家既有抱负又有天赋，则善莫大焉。如果她的作品被出版，甚至还有稿酬，那真是妙不可言。她的母亲说得没错，她需要一份正经工作。凭借她的文学才能，她也许能谋到一个公关、营销或法律方面的职位（我大学里最好的朋友原本希望闯入新闻界，但她最终却成了纽约最高法院的首位首席女法官……）。但无论如何，人类都应该坚持学习小说写作的技巧，这对我们丰富多彩的生活和文化都大有裨益。"
+                </p>
+            </div>
+
+            <p class="note-source">
+                — <em>Writing Fiction: A Guide to Narrative Craft</em>, Tenth Edition<br>
+                Janet Burroway with Elizabeth Stuckey-French and Ned Stuckey-French<br>
+                <span class="note-source-cn">《小说写作：叙事技巧指南（第十版）》珍妮特·伯罗薇 伊丽莎白·斯塔基-弗伦奇</span>
+            </p>
+        </main>
+
+
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
