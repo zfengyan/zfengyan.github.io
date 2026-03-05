@@ -120,6 +120,111 @@
             transform: scale(1.1);
         }
 
+        /* Character block: image left, text right */
+        .character-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .character-block .character-image {
+            flex: 0 0 auto;
+            width: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .character-block .character-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .character-block .character-text {
+            flex: 1;
+            color: #a5b4fc;
+            font-size: 0.95rem;
+            line-height: 1.85;
+        }
+
+        .character-block .character-text .character-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .character-block .character-text p {
+            margin: 0 0 0.9rem 0;
+        }
+
+        .character-block .character-text .character-divider {
+            border: none;
+            border-top: 1px solid rgba(165, 180, 252, 0.25);
+            margin: 1.2rem 0;
+        }
+
+        /* Concept/Location block card */
+        .concept-block {
+            max-width: 900px;
+            margin: 0 auto 2.5rem auto;
+            padding: 1.8rem 2rem;
+            border: 1px solid rgba(165, 180, 252, 0.15);
+            border-radius: 10px;
+            background: rgba(165, 180, 252, 0.04);
+        }
+
+        .concept-block .gallery-title {
+            margin-top: 0;
+        }
+
+        .concept-block .gallery-grid {
+            /* Override the global auto-margin so it sits flush inside the card */
+            margin: 1rem 0 0 0;
+            max-width: 100%;
+        }
+
+        .concept-block .concept-note {
+            margin-top: 1rem;
+        }
+
+        /* Force a strict 2-column grid for sections with exactly 4 images */
+        .gallery-grid-2x2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* Decorative section divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 2.5rem auto;
+        }
+
+        .section-divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to var(--dir, right),
+                    transparent,
+                    rgba(165, 180, 252, 0.35));
+        }
+
+        .section-divider-line:last-child {
+            --dir: left;
+        }
+
+        .section-divider-label {
+            color: rgba(165, 180, 252, 0.55);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            font-style: italic;
+            white-space: nowrap;
+            user-select: none;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .gallery-grid {
@@ -136,6 +241,15 @@
                 height: 40px;
                 font-size: 1.5rem;
             }
+
+            .character-block {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-block .character-image {
+                width: 180px;
+            }
         }
     </style>
 </head>
@@ -149,7 +263,7 @@
             <p class="projects-subtitle">
                 <i>The Frontier (《边陲》)</i> is a creative experiment, an exploration of my own interests and hobbies.
                 Currently,
-                it's a stream-of-consciousness novel (or world-building) that intersects art and philosophy, based on a
+                it's a stream-of-consciousness novel (or world-building) based on a
                 cosmic setting. </br>
                 More information to come.
             </p>
@@ -158,105 +272,159 @@
         <!-- Main Visualization Content -->
         <main class="shell">
             <section class="image-gallery">
-                <p class="gallery-title">Concept - Protoplanet Embryo Initiative (原行星胚胎计划)</p>
-                <p class="gallery-font">"On the edge of the dust where stars are born, watching over the unfinished
-                    land,
-                    waiting for the world to slowly take shape."</p>
-                <p class="gallery-font">"在恒星诞生的尘埃边缘守望未竟之地，等待世界缓慢成形。"</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-0.JPG">
-                        <img src="images/Protoplanet_Embryo_Initiative-images-0.JPG"
-                            alt="Protoplanet Embryo Initiative - Image 0" class="thumbnail">
+
+
+                <!-- Main Characters -->
+                <p class="gallery-title">Main Characters (主要人物)</p>
+
+                <div class="character-block">
+                    <!-- Wrap in gallery-item so the lightbox JS picks it up -->
+                    <div class="character-image gallery-item" data-image="images/Characters-0.png">
+                        <img src="images/Characters-0.png" alt="澈 & 景池" class="thumbnail" style="max-height: none;">
                     </div>
-                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-1.JPG">
-                        <img src="images/Protoplanet_Embryo_Initiative-images-1.JPG"
-                            alt="Protoplanet Embryo Initiative - Image 1" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-2.JPG">
-                        <img src="images/Protoplanet_Embryo_Initiative-images-2.JPG"
-                            alt="Protoplanet Embryo Initiative - Image 2" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-3.JPG">
-                        <img src="images/Protoplanet_Embryo_Initiative-images-3.JPG"
-                            alt="Protoplanet Embryo Initiative - Image 3" class="thumbnail">
+                    <div class="character-text">
+                        <!-- Chinese -->
+                        <p class="character-name">澈 &amp; 景池 &mdash; &ldquo;她是他的春天。&rdquo;</p>
+                        <p>在一个古老的昨日，我的结局都已写好。这里将是我的彼岸。</p>
+                        <p>如果我将想念放置在天文宇宙的尺度上，让浩瀚地无法计算的庞大来填充我，那我对你的想念将不再逼仄。播放器里的钢琴音传来，河面上的风起得更轻了，落叶在水上缓慢旋转，映衬着曾经的这些对白。恒星年的秋天有一种奇怪的透明度，情绪像是被放大之后再被收紧，而我们——
+                        </p>
+                        <p>我们只是被宇宙的往事所包围。</p>
+                        <p>在离开北部基地的这么多年里，却还是醉心。也许是应该从飞行器的圆盘周期里向外找寻，而后再反应过来，那是一种阔别已久。</p>
+                        <p>&ldquo;可是景池，如果我真有一天偏离得太远呢？&rdquo;<br>&ldquo;那我就去找你。&rdquo;</p>
+
+                        <hr class="character-divider">
+
+                        <!-- English -->
+                        <p class="character-name">Che &amp; Jingchi &mdash; &ldquo;She is his spring.&rdquo;</p>
+                        <p>In some ancient yesterday, my ending had already been written. This place will be my far
+                            shore.</p>
+                        <p>If I place my longing on an astronomical scale, letting an immeasurable vastness fill the
+                            space within me, then perhaps the thought of you will no longer feel so confined. A piano
+                            piece drifts from the player. The wind over the river grows softer. Leaves turn slowly on
+                            the surface of the water, echoing those conversations we once had. Autumn in a stellar year
+                            has a strange transparency. Emotions seem first magnified, then drawn tight again. And
+                            we&mdash; we are simply surrounded by the past of the universe.</p>
+                        <p>All these years after leaving the Northern Base, I still find myself quietly intoxicated by
+                            it. Perhaps one should begin by looking outward, beyond the orbital cycles of the craft, and
+                            only then realize that what it&rsquo;s something I&rsquo;ve been away from for a long time.
+                        </p>
+                        <p>&ldquo;But Jingchi&hellip; what if one day I drift too far away?&rdquo;<br>&ldquo;Then
+                            I&rsquo;ll come find you.&rdquo;</p>
                     </div>
                 </div>
 
-                <br></br>
-                <br></br>
+                <!-- Section divider -->
+                <div class="section-divider" aria-hidden="true">
+                    <span class="section-divider-line"></span>
+                    <span class="section-divider-label">&mdash;&thinsp; Concepts &amp; Locations &thinsp;&mdash;</span>
+                    <span class="section-divider-line"></span>
+                </div>
 
-                <p class="gallery-title">Concept - Heart of the Sea (海之心)</p>
-                <p class="gallery-font">"A glimmering habitat suspended above a blue, newly born star, open to both the
-                    deep sea and the stars."</p>
-                <p class="gallery-font">"悬于蔚蓝初生星上的微光栖所，向深海与星际同时敞开。"</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item" data-image="images/Heart of the Sea 0.png">
-                        <img src="images/Heart of the Sea 0.png" alt="Heart of the Sea - Image 0" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Heart of the Sea 1.png">
-                        <img src="images/Heart of the Sea 1.png" alt="Heart of the Sea - Image 1" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Heart of the Sea 2.png">
-                        <img src="images/Heart of the Sea 2.png" alt="Heart of the Sea - Image 2" class="thumbnail">
+                <!-- Concept: Protoplanet Embryo Initiative -->
+                <div class="concept-block">
+                    <p class="gallery-title">Concept - Protoplanet Embryo Initiative (原行星胚胎计划)</p>
+                    <p class="gallery-font">"在恒星诞生的尘埃边缘守望未竟之地，等待世界缓慢成形。"</p>
+                    <p class="gallery-font">"On the edge of the dust where stars are born, watching over the unfinished
+                        land, waiting for the world to slowly take shape."</p>
+                    <div class="gallery-grid gallery-grid-2x2">
+                        <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-0.JPG">
+                            <img src="images/Protoplanet_Embryo_Initiative-images-0.JPG"
+                                alt="Protoplanet Embryo Initiative - Image 0" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-1.JPG">
+                            <img src="images/Protoplanet_Embryo_Initiative-images-1.JPG"
+                                alt="Protoplanet Embryo Initiative - Image 1" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-2.JPG">
+                            <img src="images/Protoplanet_Embryo_Initiative-images-2.JPG"
+                                alt="Protoplanet Embryo Initiative - Image 2" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-3.JPG">
+                            <img src="images/Protoplanet_Embryo_Initiative-images-3.JPG"
+                                alt="Protoplanet Embryo Initiative - Image 3" class="thumbnail">
+                        </div>
                     </div>
                 </div>
 
-                <br></br>
-                <br></br>
+                <!-- Concept: Heart of the Sea -->
+                <div class="concept-block">
+                    <p class="gallery-title">Concept - Heart of the Sea (海之心)</p>
+                    <p class="gallery-font">"悬于蔚蓝初生星上的微光栖所，向深海与星际同时敞开。"</p>
+                    <p class="gallery-font">"A glimmering habitat suspended above a blue, newly born star, open to both
+                        the deep sea and the stars."</p>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-image="images/Heart of the Sea 0.png">
+                            <img src="images/Heart of the Sea 0.png" alt="Heart of the Sea - Image 0" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Heart of the Sea 1.png">
+                            <img src="images/Heart of the Sea 1.png" alt="Heart of the Sea - Image 1" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Heart of the Sea 2.png">
+                            <img src="images/Heart of the Sea 2.png" alt="Heart of the Sea - Image 2" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
 
-                <p class="gallery-title">Locations - Until We Return to the Stars (模糊界限，等我们又归于星辰)</p>
-                <p class="gallery-font">"Breath in motion finds what once was. We touched down on a solitary planet. We
-                    returned, to the world in its unknowing."</p>
-                <p class="gallery-font">"流淌的气息能够寻回往日痕迹。我们降落，在一颗孤独星球。我们返回，返回到世界懵懂。"</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item" data-image="images/Location_North_Delegates_Lounge.png">
-                        <img src="images/Location_North_Delegates_Lounge.png" alt="Location: North Delegates Lounge"
-                            class="thumbnail">
+                <!-- Concept: Hexi Corridor -->
+                <div class="concept-block">
+                    <p class="gallery-title">Concept - Hexi Corridor (河西走廊)</p>
+                    <p class="gallery-font">"历史的遗迹们是被时间压缩的空间节点。人们试图用几何与语义，为文明建立可被往日读取的坐标。空间如何承载文明？"</p>
+                    <p class="gallery-font">"无论是河西走廊，还是银河边缘，是同一个问题。"</p>
+                    <p class="gallery-font">"Historical relics are spatial nodes compressed by time. People attempt to
+                        use geometry and semantics to establish coordinates for civilization that can be read from the
+                        past. How can space bear the weight of civilization?</p>
+                    <p class="gallery-font">Whether in the Hexi Corridor or at the edge of the Milky Way, it's the same
+                        question."</p>
+                    <div class="gallery-grid gallery-grid-2x2">
+                        <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-0.png">
+                            <img src="images/Research_Proposal_Hexi_Corridor-0.png"
+                                alt="Research Proposal Hexi Corridor - Image 0" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-1.png">
+                            <img src="images/Research_Proposal_Hexi_Corridor-1.png"
+                                alt="Research Proposal Hexi Corridor - Image 1" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-2.png">
+                            <img src="images/Research_Proposal_Hexi_Corridor-2.png"
+                                alt="Research Proposal Hexi Corridor - Image 2" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-3.png">
+                            <img src="images/Research_Proposal_Hexi_Corridor-3.png"
+                                alt="Research Proposal Hexi Corridor - Image 3" class="thumbnail">
+                        </div>
                     </div>
-                    <div class="gallery-item" data-image="images/Location_room.png">
-                        <img src="images/Location_room.png" alt="Location: Room" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Location_Northern_Base.png">
-                        <img src="images/Location_Northern_Base.png" alt="Location: Northern Base" class="thumbnail">
+                    <div class="concept-note">
+                        <p class="gallery-font" style="text-align: center; font-size: 12px;">Note: The inspiration comes
+                            from a
+                            research proposal I wrote for a PhD application. More information can be found <a
+                                href="documents/Research Proposal - Gansu Corridor.pdf" target="_blank"
+                                rel="noopener noreferrer" class="paper-link">here</a>.</p>
+                        <p class="gallery-font" style="text-align: center; font-size: 12px;">The reason I chose Hexi
+                            Corridor
+                            (Gansu Corridor) to write the research proposal is that, it is my hometown.</p>
                     </div>
                 </div>
 
-                <br></br>
-                <br></br>
-
-                <p class="gallery-title">Concept - Hexi Corridor (河西走廊)</p>
-                <p class="gallery-font">"Historical relics are spatial nodes compressed by time. People attempt to use
-                    geometry and semantics to establish coordinates for civilization that can be read from the past. How
-                    can space bear the weight of civilization? </p>
-                <p class="gallery-font">Whether in the Hexi Corridor or at the edge of the Milky
-                    Way, it's the same question."</p>
-                <p class="gallery-font">"历史的遗迹们是被时间压缩的空间节点。人们试图用几何与语义，为文明建立可被往日读取的坐标。空间如何承载文明？"</p>
-                <p class="gallery-font">"无论是河西走廊，还是银河边缘，是同一个问题。"</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-0.png">
-                        <img src="images/Research_Proposal_Hexi_Corridor-0.png"
-                            alt="Research Proposal Hexi Corridor - Image 0" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-1.png">
-                        <img src="images/Research_Proposal_Hexi_Corridor-1.png"
-                            alt="Research Proposal Hexi Corridor - Image 1" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-2.png">
-                        <img src="images/Research_Proposal_Hexi_Corridor-2.png"
-                            alt="Research Proposal Hexi Corridor - Image 2" class="thumbnail">
-                    </div>
-                    <div class="gallery-item" data-image="images/Research_Proposal_Hexi_Corridor-3.png">
-                        <img src="images/Research_Proposal_Hexi_Corridor-3.png"
-                            alt="Research Proposal Hexi Corridor - Image 3" class="thumbnail">
+                <!-- Locations: Until We Return to the Stars -->
+                <div class="concept-block">
+                    <p class="gallery-title">Locations - Until We Return to the Stars (模糊界限，等我们又归于星辰)</p>
+                    <p class="gallery-font">"流淌的气息能够寻回往日痕迹。我们降落，在一颗孤独星球。我们返回，返回到世界懵懂。"</p>
+                    <p class="gallery-font">"Breath in motion finds what once was. We touched down on a solitary planet.
+                        We returned, to the world in its unknowing."</p>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-image="images/Location_North_Delegates_Lounge.png">
+                            <img src="images/Location_North_Delegates_Lounge.png" alt="Location: North Delegates Lounge"
+                                class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Location_room.png">
+                            <img src="images/Location_room.png" alt="Location: Room" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Location_Northern_Base.png">
+                            <img src="images/Location_Northern_Base.png" alt="Location: Northern Base"
+                                class="thumbnail">
+                        </div>
                     </div>
                 </div>
-                <br></br>
-                <p class="gallery-font" style="text-align: center; font-size: 12px;">Note: The inspiration comes from a
-                    research proposal I wrote for a PhD application. More information can be found <a
-                        href="documents/Research Proposal - Gansu Corridor.pdf" target="_blank"
-                        rel="noopener noreferrer" class="paper-link">here</a>.</p>
-                <p class="gallery-font" style="text-align: center; font-size: 12px;">The reason I chose Hexi Corridor
-                    (Gansu Corridor) to write the research proposal is that, it is my hometown.</p>
 
             </section>
 
