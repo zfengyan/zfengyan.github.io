@@ -13,6 +13,128 @@
 
     <!-- ==================== CSS STYLES ==================== -->
     <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        /* ---- Scoped button overrides: home page only ---- */
+        /* Removes the pill shape; replaces it with a soft luminous glow
+           so the links feel like they float in the cosmic background
+           rather than sitting on top of it as solid objects.          */
+
+        .intro .button-primary,
+        .intro .button-ghost {
+            /* Strip all pill styling inherited from styles.css */
+            border: none;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            padding: 0.45rem 0.75rem;
+            /* Match the .intro-body paragraph font size */
+            font-size: 0.95rem;
+            position: relative;
+            transition:
+                transform 0.25s ease,
+                text-shadow 0.25s ease,
+                color 0.25s ease;
+        }
+
+        /* Shared radial halo layer — sits behind the text */
+        .intro .button-primary::before,
+        .intro .button-ghost::before {
+            content: "";
+            position: absolute;
+            /* Extend beyond the text bounds so the glow feels spacious */
+            inset: -60% -50%;
+            border-radius: 50%;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ---- Primary: muted indigo glow (#50498F family) ---- */
+        .intro .button-primary {
+            color: #a5b4fc;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(165, 180, 252, 0.25);
+        }
+
+        .intro .button-primary::before {
+            background: radial-gradient(ellipse,
+                    rgba(165, 180, 252, 0.09) 0%,
+                    transparent 68%);
+            opacity: 1;
+        }
+
+        .intro .button-primary:hover {
+            transform: translateY(-2px);
+            color: #818cf8;
+            text-shadow: 0 0 16px rgba(165, 180, 252, 0.55);
+        }
+
+        .intro .button-primary:hover::before {
+            opacity: 1.4;
+        }
+
+        /* ---- Ghost: cool silver glow, more restrained ---- */
+        .intro .button-ghost {
+            color: #c8cdd6;
+            text-shadow: 0 0 12px rgba(148, 163, 184, 0.3);
+        }
+
+        .intro .button-ghost::before {
+            background: radial-gradient(ellipse,
+                    rgba(148, 163, 184, 0.08) 0%,
+                    transparent 68%);
+            opacity: 1;
+        }
+
+        .intro .button-ghost:hover {
+            transform: translateY(-2px);
+            color: #e5e7eb;
+            text-shadow: 0 0 20px rgba(148, 163, 184, 0.55);
+        }
+
+        .intro .button-ghost:hover::before {
+            opacity: 1.6;
+        }
+
+        /* Two-column grid for the button group: max-content columns
+           keep each column's left edge fixed regardless of text length */
+        .intro-actions-grid {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            gap: 0.15rem 2rem;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Decorative section divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 2.5rem auto;
+        }
+
+        .section-divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to var(--dir, right),
+                    transparent,
+                    rgba(165, 180, 252, 0.35));
+        }
+
+        .section-divider-line:last-child {
+            --dir: left;
+        }
+
+        .section-divider-label {
+            color: rgba(165, 180, 252, 0.55);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            font-style: italic;
+            white-space: nowrap;
+            user-select: none;
+        }
+    </style>
 </head>
 
 <!-- ============================================================ -->
@@ -56,7 +178,7 @@
                     <!-- Orbiting planets (navigation links) -->
                     <div class="planet-links">
                         <div class="planet social">
-                            <a href="#" data-label="Home"></a>
+                            <a href="blog.html" data-label="Blog"></a>
                         </div>
                         <div class="planet social">
                             <a href="notes.html" data-label="Notes"></a>
@@ -151,15 +273,26 @@
                     the things I am building, reading, and trying to understand.
                 </p>
 
-                <div class="intro-actions">
+                <!-- Section divider -->
+                <div class="section-divider" aria-hidden="true">
+                    <span class="section-divider-line"></span>
+                    <span class="section-divider-label">Serendipity</span>
+                    <span class="section-divider-line"></span>
+                </div>
+
+                <!-- Six links in a two-column grid for consistent alignment -->
+                <div class="intro-actions-grid">
                     <a href="documents/Resume%20of%20Failures.pdf" target="_blank" rel="noopener noreferrer"
                         class="button-ghost"><i>Resume of Failures</i></a>
                     <a href="documents/Resume.pdf" target="_blank" rel="noopener noreferrer"
                         class="button-primary">Resume</a>
-                </div>
-                <div class="intro-actions">
-                    <a href="projects.html" class="button-primary">View Projects</a>
-                    <a href="the-frontier.html" rel="noopener noreferrer" class="button-ghost">
+
+                    <a href="projects.html" class="button-primary">Projects</a>
+                    <a href="blog.html" rel="noopener noreferrer" class="button-ghost">
+                        <i>Blog</i></a>
+
+                    <a href="notes.html" class="button-ghost">Notes</a>
+                    <a href="the-frontier.html" rel="noopener noreferrer" class="button-primary">
                         <i>The Frontier (《边陲》)</i></a>
                 </div>
                 <!--
