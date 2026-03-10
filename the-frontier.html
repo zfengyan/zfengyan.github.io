@@ -41,6 +41,7 @@
             overflow: hidden;
             background: rgba(255, 255, 255, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
         }
 
         .gallery-item:hover {
@@ -50,10 +51,14 @@
 
         .thumbnail {
             width: 100%;
-            height: auto;
+            height: 100%;
             object-fit: cover;
             display: block;
             max-height: 300px;
+        }
+
+        .gallery-grid .thumbnail {
+            aspect-ratio: 3 / 2;
         }
 
         /* Lightbox Styles */
@@ -152,7 +157,7 @@
 
         .character-block .character-text .character-name {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 500;
             margin-bottom: 1rem;
         }
 
@@ -191,8 +196,11 @@
         }
 
         /* Force a strict 2-column grid for sections with exactly 4 images */
-        .gallery-grid-2x2 {
+        .concept-block .gallery-grid.gallery-grid-2x2 {
             grid-template-columns: repeat(2, 1fr);
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Decorative section divider */
@@ -275,7 +283,7 @@
 
 
                 <!-- Main Characters -->
-                <p class="gallery-title">Main Characters (主要人物)</p>
+                <p class="gallery-title">“主要人物” (Main Characters)</p>
 
                 <div class="character-block">
                     <!-- Wrap in gallery-item so the lightbox JS picks it up -->
@@ -316,13 +324,32 @@
                 <!-- Section divider -->
                 <div class="section-divider" aria-hidden="true">
                     <span class="section-divider-line"></span>
-                    <span class="section-divider-label">&mdash;&thinsp; Concepts &amp; Locations &thinsp;&mdash;</span>
+                    <span class="section-divider-label">&mdash;&thinsp; 概念 &amp; 地点设定 &thinsp;&mdash;</span>
                     <span class="section-divider-line"></span>
+                </div>
+
+                <!-- Concept: 而岁月不见火焰低吟 -->
+                <div class="concept-block">
+                    <p class="gallery-title">概念设定 - “而岁月不见火焰低吟” (The Quietness of a Flame)</p>
+                    <p class="gallery-font">“静穆与你一同出现，一些盛开悄无声息。”</p>
+                    <p class="gallery-font">"Quietness arrives with you—
+                        and somewhere, something blooms in silence."</p>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-image="images/而岁月不见火焰低吟-0.webp">
+                            <img src="images/而岁月不见火焰低吟-0.webp" alt="Concept 1" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/而岁月不见火焰低吟-1.webp">
+                            <img src="images/而岁月不见火焰低吟-1.webp" alt="Concept 2" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/而岁月不见火焰低吟-2.webp">
+                            <img src="images/而岁月不见火焰低吟-2.webp" alt="Concept 3" class="thumbnail">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Concept: Protoplanet Embryo Initiative -->
                 <div class="concept-block">
-                    <p class="gallery-title">Concept - Protoplanet Embryo Initiative (原行星胚胎计划)</p>
+                    <p class="gallery-title">概念设定 - “原行星胚胎计划” (Protoplanet Embryo Initiative)</p>
                     <p class="gallery-font">"在恒星诞生的尘埃边缘守望未竟之地，等待世界缓慢成形。"</p>
                     <p class="gallery-font">"On the edge of the dust where stars are born, watching over the unfinished
                         land, waiting for the world to slowly take shape."</p>
@@ -348,7 +375,7 @@
 
                 <!-- Concept: Heart of the Sea -->
                 <div class="concept-block">
-                    <p class="gallery-title">Concept - Heart of the Sea (海之心)</p>
+                    <p class="gallery-title">概念设定 - “海之心” (Heart of the Sea)</p>
                     <p class="gallery-font">"悬于蔚蓝初生星上的微光栖所，向深海与星际同时敞开。"</p>
                     <p class="gallery-font">"A glimmering habitat suspended above a blue, newly born star, open to both
                         the deep sea and the stars."</p>
@@ -367,9 +394,9 @@
 
                 <!-- Concept: Hexi Corridor -->
                 <div class="concept-block">
-                    <p class="gallery-title">Concept - Hexi Corridor (河西走廊)</p>
-                    <p class="gallery-font">"历史的遗迹们是被时间压缩的空间节点。人们试图用几何与语义，为文明建立可被往日读取的坐标。空间如何承载文明？"</p>
-                    <p class="gallery-font">"无论是河西走廊，还是银河边缘，是同一个问题。"</p>
+                    <p class="gallery-title">概念设定 - “河西走廊” (Hexi Corridor)</p>
+                    <p class="gallery-font">"历史的遗迹们是被时间压缩的空间节点。人们试图用几何与语义，为文明建立可被往日读取的坐标。"</p>
+                    <p class="gallery-font">"空间如何承载文明？无论是河西走廊，还是银河边缘，或许是同一个问题。"</p>
                     <p class="gallery-font">"Historical relics are spatial nodes compressed by time. People attempt to
                         use geometry and semantics to establish coordinates for civilization that can be read from the
                         past. How can space bear the weight of civilization?</p>
@@ -399,15 +426,12 @@
                             research proposal I wrote for a PhD application. More information can be found <a
                                 href="documents/Research Proposal - Gansu Corridor.pdf" target="_blank"
                                 rel="noopener noreferrer" class="paper-link">here</a>.</p>
-                        <p class="gallery-font" style="text-align: center; font-size: 12px;">The reason I chose Hexi
-                            Corridor
-                            (Gansu Corridor) to write the research proposal is that, it is my hometown.</p>
                     </div>
                 </div>
 
                 <!-- Locations: Until We Return to the Stars -->
                 <div class="concept-block">
-                    <p class="gallery-title">Locations - Until We Return to the Stars (模糊界限，等我们又归于星辰)</p>
+                    <p class="gallery-title">地点设定 - “模糊界限，等我们又归于星辰” (Until We Return to the Stars)</p>
                     <p class="gallery-font">"流淌的气息能够寻回往日痕迹。我们降落，在一颗孤独星球。我们返回，返回到世界懵懂。"</p>
                     <p class="gallery-font">"Breath in motion finds what once was. We touched down on a solitary planet.
                         We returned, to the world in its unknowing."</p>
