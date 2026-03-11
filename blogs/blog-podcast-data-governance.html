@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Blog by Fengyan Zhang" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        /* Blog page — scoped styles */
+        .blog-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid rgba(165, 180, 252, 0.5);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .blog-quote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .blog-source {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: #6b7280;
+            text-align: left;
+            padding-left: 0.25rem;
+        }
+
+        .blog-source-cn {
+            display: block;
+            margin-top: 0.15rem;
+        }
+
+        /* Headings inside a blog entry */
+        .blog-heading {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c4caff;
+            margin: 1.2rem 0 0.4rem;
+            letter-spacing: 0.03em;
+        }
+
+        .blog-heading:first-child {
+            margin-top: 0;
+        }
+
+        .blog-image {
+            max-width: 60%;
+            display: block;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Individual wisdom quote block */
+        .blog-wisdom-quote {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: #d1d5db;
+            font-style: italic;
+            margin: 0.6rem 0 0.15rem;
+        }
+
+        /* Right-aligned attribution under each quote */
+        .blog-wisdom-attr {
+            font-size: 0.82rem;
+            color: #6b7280;
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .blog-wisdom-attr a {
+            color: #9ca3af;
+            transition: color 0.2s ease;
+        }
+
+        .blog-wisdom-attr a:hover {
+            color: #a5b4fc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="../blog.html" class="back-link">← Back to Blog</a>
+            <h1 class="projects-title">Podcast on Data Governance</h1>
+            <div class="projects-subtitle">
+                <p>
+                    Notes and reflections on The Data Governance Podcast with Shahnaaz Nazerali-Larsen.
+                </p>
+            </div>
+        </header>
+
+        <!-- blog -->
+        <main class="blog-section shell">
+            <!-- Essay entry -->
+            <div class="blog-entry">
+                <p class="blog-quote" style="color: #e2e8f0;">
+                    I recently had the privilege of conducting interviews with
+                    <a href="https://www.linkedin.com/in/shahnaazn/" target="_blank" rel="noopener noreferrer"
+                        style="color: #c4caff; text-decoration: none; border-bottom: 1px dashed #c4caff; transition: opacity 0.2s;"
+                        onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">Shahnaaz
+                        Nazerali-Larsen</a>, a strategic leader driving transformation in Data Management and Governance
+                    for global organizations.
+                </p>
+                <p class="blog-quote" style="color: #e2e8f0; margin-bottom: 1rem;">
+                    She is an amazingly wise person and a brilliant leader. Our conversations were inspiring,
+                    which is why I wanted to document and share some of her key insights from <em>The Data
+                        Governance Podcast</em> here.
+                </p>
+
+                <h2 class="blog-heading">People, Culture, and Data</h2>
+
+                <p class="blog-quote">
+                    “Data governance is not only about data, but also people and culture.”
+                </p>
+                <p class="blog-quote">
+                    “How culture shapes behavior, this is true for data management topics. An organization’s culture
+                    shapes how its data’s practices are executed, it influences the employee’s behavior to its data, in
+                    exactly the same way as a culture shapes people’s behaviors.”
+                </p>
+                <p class="blog-quote">
+                    “Doing data governance…you need to govern the people, and it is about changing the organization,
+                    changing the behaviors of these people, so that you capture the good data, the right data, to enable
+                    the business profit.”
+                </p>
+
+                <p class="blog-wisdom-quote">
+                    → Data governance, how? Not only working with data, but also changing the organization and the
+                    people, to affect the workflow of how data is generated and captured … so that you can capture the
+                    good data, and eventually enabling the business profit.
+                </p>
+
+                <h2 class="blog-heading">The Value of Trusted Data</h2>
+
+                <p class="blog-quote">
+                    “The most challenging part, is to convince the executive leadership that data governance matters.
+                    Data needs focus and control, as other assets, like financial, etc.”
+                </p>
+                <p class="blog-quote">
+                    “You can simply not get reliable AI outcomes, from unreliable data. And all the leaders want AI,
+                    want its benefits.”
+                </p>
+                <p class="blog-quote">
+                    “Everyone wants the benefits of good data, of AI, of automation, things like that, but very few want
+                    to adjust the behaviors of the ways of working that creates trusted data in the first place.”
+                </p>
+
+                <p class="blog-wisdom-quote">
+                    → Good AI outcomes come from good data, good data comes from optimization of how the data is
+                    created, this requires changing the behaviors of working.
+                </p>
+
+                <h2 class="blog-heading">Where Governance Lives</h2>
+
+                <p class="blog-quote">
+                    “Start with the fundamentals.”
+                </p>
+                <p class="blog-quote">
+                    “Data management is fundamentally about changing.”
+                </p>
+                <p class="blog-quote">
+                    “Because I strongly believe that if you understand people and data, you will be at the heart of
+                    where governance is handling.”
+                </p>
+
+                <p class="blog-wisdom-attr">
+                    <a href="https://open.spotify.com/episode/7GZwc4GroCuWDurb0b4P4Y" target="_blank"
+                        rel="noopener noreferrer">
+                        The Data Governance Podcast ft. Shahnaaz Nazerali-Larsen
+                    </a>
+                </p>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
