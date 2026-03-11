@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Blog by Fengyan Zhang" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        /* Blog page — scoped styles */
+        .blog-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid rgba(165, 180, 252, 0.5);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .blog-quote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .blog-source {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: #6b7280;
+            text-align: left;
+            padding-left: 0.25rem;
+        }
+
+        .blog-source-cn {
+            display: block;
+            margin-top: 0.15rem;
+        }
+
+        /* Headings inside a blog entry */
+        .blog-heading {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c4caff;
+            margin: 1.2rem 0 0.4rem;
+            letter-spacing: 0.03em;
+        }
+
+        .blog-heading:first-child {
+            margin-top: 0;
+        }
+
+        .blog-image {
+            max-width: 60%;
+            display: block;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Individual wisdom quote block */
+        .blog-wisdom-quote {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: #d1d5db;
+            font-style: italic;
+            margin: 0.6rem 0 0.15rem;
+        }
+
+        /* Right-aligned attribution under each quote */
+        .blog-wisdom-attr {
+            font-size: 0.82rem;
+            color: #6b7280;
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .blog-wisdom-attr a {
+            color: #9ca3af;
+            transition: color 0.2s ease;
+        }
+
+        .blog-wisdom-attr a:hover {
+            color: #a5b4fc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="../blog.html" class="back-link">← Back to Blog</a>
+            <h1 class="projects-title">gia 2025</h1>
+            <div class="projects-subtitle">
+                <p>
+                    Some reflections and thoughts from my time at gia institute.
+                </p>
+            </div>
+        </header>
+
+        <!-- blog -->
+        <main class="blog-section shell">
+            <!-- Essay entry -->
+            <div class="blog-entry">
+                <h2 class="blog-heading">A Chapter Closes</h2>
+                <p class="blog-quote">
+                    It feels like the closing of a chapter, or perhaps another life lived in a parallel universe.
+                </p>
+                <p class="blog-quote">
+                    Time has felt strangely non-linear these past two years. I sometimes wonder whether there exists a
+                    function powerful enough to model human feelings — a system that could take emotions and treasured
+                    moments as input and return a summary of how we’ve changed, and who we’ve managed to become. Maybe
+                    such a function already exists behind those high-dimensional vector spaces that I still cannot fully
+                    understand.
+                </p>
+
+                <img src="../images/gia-0.png" alt="gia memory 0" class="blog-image">
+
+                <p class="blog-quote">
+                    Memories and feelings don’t sit still long enough to be embedded, however. They blur at the edges,
+                    drift, and move in ways no vector can fully capture.
+                </p>
+                <p class="blog-quote">
+                    When I was younger, life felt like a progress bar I could monitor, or a piece of code I could debug
+                    into certainty. I even believed that if one was serious enough, life could be “coded,” that clarity
+                    and structure would naturally follow. But the truth seems to be more mysterious, and less obedient
+                    to logic. Perhaps when I get older, I'll be able to find some kind of simplicity.
+                </p>
+
+                <img src="../images/gia-1.png" alt="gia memory 1" class="blog-image">
+
+                <p class="blog-quote">
+                    Looking back now, I sometimes find myself overwhelmed by feelings, many of which I still lack words
+                    for. Maybe with age I’ll learn to be precise and concise. Or maybe human feelings will always exceed
+                    the language available to express them.
+                </p>
+                <p class="blog-quote">
+                    I still remember two years ago, before leaving Delft for Aachen. I felt uncertain, nervous, excited
+                    — just the usual ingredients of a big (well, what seemed “big” at the time) transition, though my
+                    inner world tends to amplify them into something more theatrical than necessary.
+                </p>
+                <p class="blog-quote">
+                    Now, two years later, I’ve learned new technologies, new methods, new ways of thinking at the
+                    institute. Research comes with challenges, not every idea becomes a prototype, and some concepts
+                    require deeper understanding than I initially had. But every challenge taught me something valuable.
+                    I am grateful to my colleagues and supervisors for their patience, insight, and generosity. Outside
+                    work, I learned fragments of German culture as well. Living in different countries feels like
+                    running multiple operating systems simultaneously in the mind, occasionally confusing, but
+                    ultimately beautiful.
+                </p>
+
+                <img src="../images/gia-2.png" alt="gia memory 2" class="blog-image">
+
+                <p class="blog-quote">
+                    I write this partly for self-reflection, and partly in the hope that it may resonate with someone
+                    who has similar experiences or who might find something helpful in it. Years later, when I look
+                    back, I hope I’ll remember the quiet texture of these days, the people I met, and the small,
+                    luminous moments in between. Words are perhaps a more authentic way for me to connect with the
+                    world.
+                </p>
+
+                <p class="blog-wisdom-quote">
+                    “Magic is in the experience.”
+                </p>
+                <p class="blog-wisdom-attr">&mdash; GPT</p>
+
+                <p class="blog-quote">
+                    It’s beautiful. I might as well use it as my ending note. :)
+                </p>
+                <p class="blog-quote">
+                    Goodbye, and all my best, to all the encounters.
+                </p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
