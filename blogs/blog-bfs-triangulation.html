@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Blog by Fengyan Zhang" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        /* Blog page — scoped styles */
+        .blog-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid rgba(165, 180, 252, 0.5);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .blog-quote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .blog-heading {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c4caff;
+            margin: 1.2rem 0 0.4rem;
+            letter-spacing: 0.03em;
+        }
+
+        .blog-heading:first-child {
+            margin-top: 0;
+        }
+
+        .blog-image {
+            max-width: 35%;
+            display: block;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .blog-code {
+            background-color: rgba(15, 23, 42, 0.8);
+            color: #d1d5db;
+            padding: 1.2rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border: 1px solid rgba(165, 180, 252, 0.2);
+        }
+
+        /* Xcode C++ Syntax Highlights */
+        .blog-code .kw {
+            color: #ff7ab2;
+            font-weight: 500;
+        }
+
+        .blog-code .type {
+            color: #ff7ab2;
+            font-weight: 500;
+        }
+
+        .blog-code .func {
+            color: #b281eb;
+        }
+
+        .blog-code .num {
+            color: #d9c97c;
+        }
+
+        .blog-code .comment {
+            color: #7f8c98;
+            font-style: italic;
+        }
+
+        .blog-code .plain {
+            color: #d1d5db;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="../blog.html" class="back-link">← Back to Blog</a>
+            <h1 class="projects-title">Avoid Multiple Processing in BFS</h1>
+            <div class="projects-subtitle">
+                <p>
+                    Traversing a constrained triangulation without redundant face processing.
+                </p>
+            </div>
+        </header>
+
+        <!-- blog -->
+        <main class="blog-section shell">
+            <div class="blog-entry">
+                <h2 class="blog-heading">Avoid multiple processing when using BFS to traverse a constrained
+                    triangulation</h2>
+                <p class="blog-quote">
+                    The BFS algorithm is a well-known algorithm for expanding within limited boundaries, such as
+                    traversing all faces inside a polygon in a constrained triangulation. However, it's important to
+                    note that during a BFS traversal, there's a possibility that unprocessed faces may be added to the
+                    queue more than once. To avoid this issue, it's recommended to check if an element has already been
+                    processed before processing the front element of the queue.
+                </p>
+                <p class="blog-quote">
+                    An example is shown as below:
+                </p>
+
+                <img src="../images/multiple_processing_BFS.PNG" alt="Multiple processing BFS example"
+                    class="blog-image">
+
+                <p class="blog-quote">
+                    Starting from the bottom face, the rule is to not cross any constrained edges, and each face can
+                    only be processed once. And after the BFS traversal, there are two faces (with blue triangle marked)
+                    which have been added to the queue twice. To address this issue, a potential solution is to check
+                    whether the current face has already been processed. If it hasn't, then it can be processed.
+                </p>
+
+                <h2 class="blog-heading">Pseudo code for an example</h2>
+                <pre class="blog-code"><code><span class="plain">queue to store faces; </span><span class="comment">// for BFS</span>
+<span class="plain">add starting face to the queue;</span>
+
+<span class="kw">while</span> <span class="plain">(queue is not empty)</span>
+<span class="plain">{</span>
+    <span class="plain">currentFace = queue.</span><span class="func">front</span><span class="plain">();</span>
+    <span class="kw">if</span> <span class="plain">(current face has not been processed yet) { </span><span class="comment">// if not yet been processed, process it</span>
+        <span class="plain">process it;</span>
+        <span class="plain">mark it as processed;</span>
+    <span class="plain">}</span>
+    <span class="plain">queue.</span><span class="func">pop</span><span class="plain">(); </span><span class="comment">// pop the current face from the queue</span>
+
+    <span class="comment">// Add all possible finite neighbours - not crossing constrained edges and not yet processed</span>
+    <span class="kw">for</span> <span class="plain">(</span><span class="type">int</span> <span class="plain">i = </span><span class="num">0</span><span class="plain">; i &lt; </span><span class="num">3</span><span class="plain">; ++i) {</span>
+        <span class="plain">neighborFace = currentFace-&gt;</span><span class="func">neighbor</span><span class="plain">(i);</span>
+        <span class="kw">if</span> <span class="plain">(neighborFace is a finite face) { </span><span class="comment">// only add finite neighbors</span>
+            <span class="plain">commonEdge = common edge of (currentFace, neighborFace);</span>
+            <span class="kw">if</span> <span class="plain">(commonEdge is not constrained &amp;&amp; neighborFace has not been processed yet) {</span>
+                <span class="plain">add the neighborFace to the queue</span>
+            <span class="plain">}</span>
+        <span class="plain">}</span>
+    <span class="plain">} </span><span class="comment">// end for: all neighbors (including infinite neighbors)</span>
+<span class="plain">}</span></code></pre>
+
+                <p class="blog-quote">
+                    The processed faces are shown below (highlighted in cyan)
+                </p>
+
+                <img src="../images/multiple_processing_BFS_tagging.PNG" alt="Processed faces highlighted"
+                    class="blog-image">
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
