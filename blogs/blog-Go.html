@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Go Board Tool – Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Interactive Go board setup tool – place black and white stones on a 19×19 grid and export the diagram." />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        /* ── Page-scoped styles ────────────────────────────────────────── */
+
+        .blog-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid rgba(165, 180, 252, 0.5);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .blog-quote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .blog-heading {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c4caff;
+            margin: 1.2rem 0 0.4rem;
+            letter-spacing: 0.03em;
+        }
+
+        .blog-heading:first-child {
+            margin-top: 0;
+        }
+
+        /* ── Go Board Tool ─────────────────────────────────────────────── */
+
+        .go-tool-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Controls row */
+        .go-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .go-controls label {
+            font-size: 0.88rem;
+            color: #9ca3af;
+        }
+
+        /* Stone selector */
+        .stone-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .stone-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            background: rgba(15, 23, 42, 0.6);
+            color: #d1d5db;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .stone-btn:hover {
+            border-color: rgba(165, 180, 252, 0.5);
+        }
+
+        .stone-btn.active {
+            border-color: #a5b4fc;
+            background: rgba(165, 180, 252, 0.12);
+            color: #c4caff;
+        }
+
+        .stone-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .stone-dot.black {
+            background: #111;
+            border: 1px solid #555;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .stone-dot.white {
+            background: #f0f0f0;
+            border: 1px solid #aaa;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Action buttons */
+        .action-btn {
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            background: rgba(15, 23, 42, 0.6);
+            color: #9ca3af;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            border-color: rgba(165, 180, 252, 0.4);
+            color: #d1d5db;
+        }
+
+        /* Board container */
+        .go-board-container {
+            /* Horizontal scroll on very small screens */
+            overflow-x: auto;
+        }
+
+        #go-board {
+            display: block;
+            cursor: crosshair;
+            /* subtle glow on hover handled by JS */
+        }
+
+        /* Export section */
+        .go-export {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .go-export label {
+            font-size: 0.88rem;
+            color: #9ca3af;
+        }
+
+        .export-btn {
+            padding: 0.45rem 1.1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(165, 180, 252, 0.35);
+            background: rgba(165, 180, 252, 0.08);
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .export-btn:hover {
+            background: rgba(165, 180, 252, 0.18);
+            border-color: #a5b4fc;
+            box-shadow: 0 0 10px rgba(165, 180, 252, 0.2);
+        }
+
+        .export-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="../blog.html" class="back-link">← Back to Blog</a>
+            <h1 class="projects-title">Go (围棋) Board Tool</h1>
+            <div class="projects-subtitle">
+                <p>
+                    An interactive 19×19 Go board for composing diagrams.
+                    Place black and white stones, then export your layout as SVG, PNG, or WebP.
+                </p>
+            </div>
+        </header>
+
+        <!-- Main tool section -->
+        <main class="blog-section shell">
+            <div class="blog-entry">
+                <h2 class="blog-heading">Board Setup</h2>
+                <p class="blog-quote">
+                    Select a stone color, then click any intersection to place it.
+                    Clicking an occupied intersection removes the stone.
+                </p>
+
+                <div class="go-tool-wrapper">
+
+                    <!-- Stone color + utility controls -->
+                    <div class="go-controls">
+                        <label>Stone:</label>
+                        <div class="stone-selector" role="group" aria-label="Stone color">
+                            <button id="btn-black" class="stone-btn active" title="Place black stone">
+                                <span class="stone-dot black"></span>Black
+                            </button>
+                            <button id="btn-white" class="stone-btn" title="Place white stone">
+                                <span class="stone-dot white"></span>White
+                            </button>
+                        </div>
+                        <button id="btn-undo" class="action-btn" title="Undo last action">↩ Undo</button>
+                        <button id="btn-clear" class="action-btn" title="Clear all stones">✕ Clear</button>
+                    </div>
+
+                    <!-- SVG Board -->
+                    <div class="go-board-container">
+                        <svg id="go-board" role="img" aria-label="19×19 Go board"></svg>
+                    </div>
+
+                    <!-- Export controls -->
+                    <div class="go-export">
+                        <label>Export:</label>
+                        <button id="btn-export-svg" class="export-btn">↓ SVG</button>
+                        <button id="btn-export-png" class="export-btn">↓ PNG</button>
+                        <button id="btn-export-webp" class="export-btn">↓ WebP</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // ── Constants ──────────────────────────────────────────────────────
+        const GRID_SIZE   = 19;          // 19×19 board
+        const CELL        = 32;          // pixels between grid lines
+        const MARGIN      = 40;          // pixels from SVG edge to first line
+        const STONE_R     = 14;          // stone radius in pixels
+        const HOSHI_R     = 3.5;         // star-point (hoshi) radius
+
+        // Star points for a 19×19 board (0-indexed)
+        const HOSHI_POINTS = [
+            [3,3],[3,9],[3,15],
+            [9,3],[9,9],[9,15],
+            [15,3],[15,9],[15,15]
+        ];
+
+        // Board colour palette
+        const BOARD_FILL   = "#dcb468";  // classic kaya wood colour
+        const LINE_COLOR   = "#7a5c1e";  // darker wood for grid lines
+        const COORD_COLOR  = "#7a5c1e";
+
+        // ── Board state ────────────────────────────────────────────────────
+        // 2-D array: null | "black" | "white"
+        let board = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null));
+        // History stack for undo: each entry is { row, col, prevValue }
+        let history = [];
+        // Which colour the user is placing
+        let activeColor = "black";
+
+        // ── SVG setup ──────────────────────────────────────────────────────
+        const svgEl = document.getElementById("go-board");
+        const BOARD_PX = MARGIN * 2 + CELL * (GRID_SIZE - 1);
+        svgEl.setAttribute("width",  BOARD_PX);
+        svgEl.setAttribute("height", BOARD_PX);
+        svgEl.setAttribute("viewBox", `0 0 ${BOARD_PX} ${BOARD_PX}`);
+
+        /** Returns the pixel coordinate for grid index i */
+        function gridPx(i) { return MARGIN + i * CELL; }
+
+        /**
+         * Build or rebuild the static board elements (background, lines, hoshi).
+         * Stones are drawn on top separately so we can update them cheaply.
+         */
+        function buildStaticBoard() {
+            // Board background
+            const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            bg.setAttribute("x", "0");
+            bg.setAttribute("y", "0");
+            bg.setAttribute("width",  BOARD_PX);
+            bg.setAttribute("height", BOARD_PX);
+            bg.setAttribute("fill", BOARD_FILL);
+            svgEl.appendChild(bg);
+
+            // Subtle border shadow ring
+            const border = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            border.setAttribute("x", MARGIN - 4);
+            border.setAttribute("y", MARGIN - 4);
+            border.setAttribute("width",  CELL * (GRID_SIZE - 1) + 8);
+            border.setAttribute("height", CELL * (GRID_SIZE - 1) + 8);
+            border.setAttribute("fill",   "none");
+            border.setAttribute("stroke", LINE_COLOR);
+            border.setAttribute("stroke-width", "1.5");
+            border.setAttribute("rx", "2");
+            svgEl.appendChild(border);
+
+            // Grid lines
+            for (let i = 0; i < GRID_SIZE; i++) {
+                const px = gridPx(i);
+
+                // Vertical line
+                const vLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                vLine.setAttribute("x1", px);
+                vLine.setAttribute("y1", MARGIN);
+                vLine.setAttribute("x2", px);
+                vLine.setAttribute("y2", gridPx(GRID_SIZE - 1));
+                vLine.setAttribute("stroke", LINE_COLOR);
+                vLine.setAttribute("stroke-width", "0.8");
+                svgEl.appendChild(vLine);
+
+                // Horizontal line
+                const hLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                hLine.setAttribute("x1", MARGIN);
+                hLine.setAttribute("y1", px);
+                hLine.setAttribute("x2", gridPx(GRID_SIZE - 1));
+                hLine.setAttribute("y2", px);
+                hLine.setAttribute("stroke", LINE_COLOR);
+                hLine.setAttribute("stroke-width", "0.8");
+                svgEl.appendChild(hLine);
+
+                // Coordinate label (column: A–T skipping I, row: 1–19)
+                const colLetters = "ABCDEFGHJKLMNOPQRST"; // standard Go coordinates
+                const colLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                colLabel.setAttribute("x", px);
+                colLabel.setAttribute("y", MARGIN - 12);
+                colLabel.setAttribute("text-anchor", "middle");
+                colLabel.setAttribute("font-size", "11");
+                colLabel.setAttribute("fill", COORD_COLOR);
+                colLabel.setAttribute("font-family", "system-ui, sans-serif");
+                colLabel.textContent = colLetters[i];
+                svgEl.appendChild(colLabel);
+
+                const rowLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                rowLabel.setAttribute("x", MARGIN - 14);
+                rowLabel.setAttribute("y", gridPx(GRID_SIZE - 1 - i) + 4); // row 1 at bottom
+                rowLabel.setAttribute("text-anchor", "middle");
+                rowLabel.setAttribute("font-size", "11");
+                rowLabel.setAttribute("fill", COORD_COLOR);
+                rowLabel.setAttribute("font-family", "system-ui, sans-serif");
+                rowLabel.textContent = i + 1;
+                svgEl.appendChild(rowLabel);
+            }
+
+            // Star points (hoshi)
+            for (const [r, c] of HOSHI_POINTS) {
+                const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                dot.setAttribute("cx", gridPx(c));
+                dot.setAttribute("cy", gridPx(r));
+                dot.setAttribute("r",  HOSHI_R);
+                dot.setAttribute("fill", LINE_COLOR);
+                svgEl.appendChild(dot);
+            }
+        }
+
+        // Group element that holds all stone circles (rendered above static board)
+        const stonesGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        stonesGroup.setAttribute("id", "stones-layer");
+
+        // Transparent hit-area overlay for click detection
+        const hitGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        hitGroup.setAttribute("id", "hit-layer");
+
+        /** Build hit-area rectangles — one per intersection */
+        function buildHitAreas() {
+            for (let row = 0; row < GRID_SIZE; row++) {
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    const half = CELL / 2;
+                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    rect.setAttribute("x",      gridPx(col) - half);
+                    rect.setAttribute("y",      gridPx(row) - half);
+                    rect.setAttribute("width",  CELL);
+                    rect.setAttribute("height", CELL);
+                    rect.setAttribute("fill",   "transparent");
+                    rect.dataset.row = row;
+                    rect.dataset.col = col;
+                    rect.style.cursor = "pointer";
+
+                    rect.addEventListener("click", () => handleIntersectionClick(row, col));
+
+                    // Hover preview
+                    rect.addEventListener("mouseenter", () => showPreview(row, col));
+                    rect.addEventListener("mouseleave",  hidePreview);
+
+                    hitGroup.appendChild(rect);
+                }
+            }
+        }
+
+        // ── Preview ghost stone ────────────────────────────────────────────
+        const previewCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        previewCircle.setAttribute("r", STONE_R);
+        previewCircle.setAttribute("opacity", "0");
+        previewCircle.setAttribute("pointer-events", "none");
+        previewCircle.id = "preview-stone";
+
+        function showPreview(row, col) {
+            if (board[row][col] !== null) {
+                hidePreview();
+                return;
+            }
+            previewCircle.setAttribute("cx", gridPx(col));
+            previewCircle.setAttribute("cy", gridPx(row));
+            applyStoneStyle(previewCircle, activeColor, /* isPreview= */ true);
+            previewCircle.setAttribute("opacity", "0.45");
+        }
+
+        function hidePreview() {
+            previewCircle.setAttribute("opacity", "0");
+        }
+
+        // ── Stone rendering ────────────────────────────────────────────────
+
+        /**
+         * Apply SVG fill & stroke attributes for a stone.
+         * @param {SVGCircleElement} el
+         * @param {"black"|"white"} color
+         * @param {boolean} isPreview  – skip the drop-shadow filter for previews
+         */
+        function applyStoneStyle(el, color, isPreview = false) {
+            if (color === "black") {
+                el.setAttribute("fill",         "url(#grad-black)");
+                el.setAttribute("stroke",       "#222");
+                el.setAttribute("stroke-width", "0.8");
+            } else {
+                el.setAttribute("fill",         "url(#grad-white)");
+                el.setAttribute("stroke",       "#888");
+                el.setAttribute("stroke-width", "0.8");
+            }
+            el.setAttribute("filter", isPreview ? "" : "url(#stone-shadow)");
+        }
+
+        /** Redraw all stones from the board[][] state */
+        function renderStones() {
+            // Clear existing stones
+            while (stonesGroup.firstChild) stonesGroup.removeChild(stonesGroup.firstChild);
+
+            for (let row = 0; row < GRID_SIZE; row++) {
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    const color = board[row][col];
+                    if (color === null) continue;
+
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", gridPx(col));
+                    circle.setAttribute("cy", gridPx(row));
+                    circle.setAttribute("r",  STONE_R);
+                    applyStoneStyle(circle, color);
+                    stonesGroup.appendChild(circle);
+                }
+            }
+        }
+
+        // ── State mutations ────────────────────────────────────────────────
+
+        function handleIntersectionClick(row, col) {
+            const prev = board[row][col];
+            if (prev !== null) {
+                // Toggle off: remove the stone
+                history.push({ row, col, prevValue: prev });
+                board[row][col] = null;
+            } else {
+                // Place a new stone
+                history.push({ row, col, prevValue: null });
+                board[row][col] = activeColor;
+            }
+            hidePreview();
+            renderStones();
+        }
+
+        function undo() {
+            if (history.length === 0) return;
+            const { row, col, prevValue } = history.pop();
+            board[row][col] = prevValue;
+            renderStones();
+        }
+
+        function clearBoard() {
+            board = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null));
+            history = [];
+            renderStones();
+        }
+
+        // ── SVG defs: gradients + shadow filter ───────────────────────────
+
+        function buildSvgDefs() {
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+
+            // Black stone gradient (slightly lighter on top-left to give 3-D feel)
+            const gBlack = document.createElementNS("http://www.w3.org/2000/svg", "radialGradient");
+            gBlack.setAttribute("id", "grad-black");
+            gBlack.setAttribute("cx", "38%");
+            gBlack.setAttribute("cy", "35%");
+            gBlack.setAttribute("r",  "60%");
+            gBlack.innerHTML = `
+                <stop offset="0%"   stop-color="#555"/>
+                <stop offset="100%" stop-color="#0a0a0a"/>
+            `;
+            defs.appendChild(gBlack);
+
+            // White stone gradient
+            const gWhite = document.createElementNS("http://www.w3.org/2000/svg", "radialGradient");
+            gWhite.setAttribute("id", "grad-white");
+            gWhite.setAttribute("cx", "38%");
+            gWhite.setAttribute("cy", "35%");
+            gWhite.setAttribute("r",  "60%");
+            gWhite.innerHTML = `
+                <stop offset="0%"   stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#c8c8c8"/>
+            `;
+            defs.appendChild(gWhite);
+
+            // Drop-shadow filter for stones
+            const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+            filter.setAttribute("id", "stone-shadow");
+            filter.setAttribute("x",      "-20%");
+            filter.setAttribute("y",      "-20%");
+            filter.setAttribute("width",  "140%");
+            filter.setAttribute("height", "140%");
+            filter.innerHTML = `
+                <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.55)"/>
+            `;
+            defs.appendChild(filter);
+
+            svgEl.insertBefore(defs, svgEl.firstChild);
+        }
+
+        // ── Export helpers ─────────────────────────────────────────────────
+
+        /** Serialise the current SVG (without the hit-area overlay) to a string */
+        function buildExportSvgString() {
+            // Clone the SVG
+            const clone = svgEl.cloneNode(true);
+
+            // Remove the invisible hit rectangles from the export
+            const hitLayerClone = clone.querySelector("#hit-layer");
+            if (hitLayerClone) hitLayerClone.remove();
+
+            // Remove the preview ghost stone
+            const previewClone = clone.querySelector("#preview-stone");
+            if (previewClone) previewClone.remove();
+
+            // Ensure background colour is explicit (needed for PNG/WebP)
+            const bg = clone.querySelector("rect");
+            if (bg) bg.setAttribute("fill", BOARD_FILL);
+
+            const serialiser = new XMLSerializer();
+            return serialiser.serializeToString(clone);
+        }
+
+        /** Download a file with given content, name, and MIME type */
+        function download(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function exportSvg() {
+            const svgStr = buildExportSvgString();
+            const blob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+            download(blob, "go-diagram.svg");
+        }
+
+        /**
+         * Rasterise the SVG at a given scale, then export as the specified
+         * MIME type (image/png or image/webp).
+         */
+        function exportRaster(mimeType, filename, scale = 2) {
+            const svgStr = buildExportSvgString();
+            const blob   = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+            const url    = URL.createObjectURL(blob);
+
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                canvas.width  = BOARD_PX * scale;
+                canvas.height = BOARD_PX * scale;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                URL.revokeObjectURL(url);
+
+                // Quality 0.92 keeps files small while remaining crisp
+                canvas.toBlob(
+                    (outBlob) => { if (outBlob) download(outBlob, filename); },
+                    mimeType,
+                    0.92
+                );
+            };
+            img.src = url;
+        }
+
+        // ── Wire up controls ───────────────────────────────────────────────
+
+        document.getElementById("btn-black").addEventListener("click", () => {
+            activeColor = "black";
+            document.getElementById("btn-black").classList.add("active");
+            document.getElementById("btn-white").classList.remove("active");
+        });
+
+        document.getElementById("btn-white").addEventListener("click", () => {
+            activeColor = "white";
+            document.getElementById("btn-white").classList.add("active");
+            document.getElementById("btn-black").classList.remove("active");
+        });
+
+        document.getElementById("btn-undo").addEventListener("click",  undo);
+        document.getElementById("btn-clear").addEventListener("click", clearBoard);
+
+        document.getElementById("btn-export-svg").addEventListener("click",
+            () => exportSvg());
+        document.getElementById("btn-export-png").addEventListener("click",
+            () => exportRaster("image/png",  "go-diagram.png"));
+        document.getElementById("btn-export-webp").addEventListener("click",
+            () => exportRaster("image/webp", "go-diagram.webp"));
+
+        // ── Initialise ─────────────────────────────────────────────────────
+
+        buildSvgDefs();
+        buildStaticBoard();
+        svgEl.appendChild(stonesGroup);
+        svgEl.appendChild(previewCircle);
+        buildHitAreas();
+        svgEl.appendChild(hitGroup);
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
