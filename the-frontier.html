@@ -61,6 +61,37 @@
             aspect-ratio: 3 / 2;
         }
 
+        .video-item .thumbnail {
+            aspect-ratio: 16 / 9;
+        }
+
+        /* Video Gallery Styles */
+
+        .gallery-item.video-item {
+            position: relative;
+        }
+
+        .gallery-item.video-item::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.82);
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .gallery-item.video-item:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+            color: #a5b4fc;
+        }
+
         /* Lightbox Styles */
         .lightbox {
             position: fixed;
@@ -179,6 +210,14 @@
             border: 1px solid rgba(165, 180, 252, 0.15);
             border-radius: 10px;
             background: rgba(165, 180, 252, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .concept-block:hover {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: #a5b4fc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         .concept-block .gallery-title {
@@ -328,6 +367,24 @@
                     <span class="section-divider-line"></span>
                 </div>
 
+                <!-- Concept: 行星门 & 事件视界 -->
+                <div class="concept-block">
+                    <p class="gallery-title">概念设定 - “行星门 & 事件视界” (Planet Gate & Event Horizon)</p>
+                    <p class="gallery-font">「事件视界」一种时空的曲隔界线。视界中的任何事件无法对视界外的观察者产生影响，在黑洞周围的便是事件视界。</p>
+                    <p class="gallery-font">"Event Horizon" - A boundary in spacetime. No events within the horizon can
+                        affect an outside observer. The region surrounding a black hole is an event horizon.</p>
+                    <div class="gallery-grid" style="max-width: 440px; margin-left: auto; margin-right: auto;">
+                        <div class="gallery-item video-item" data-video="images/star_gate-0.mov">
+                            <video src="images/star_gate-0.mov" class="thumbnail" muted loop playsinline
+                                autoplay></video>
+                        </div>
+                    </div>
+                    <div class="concept-note">
+                        <p class="gallery-font" style="text-align: center; font-size: 12px;">Note: The video is made by
+                            Seedance 2.0.</p>
+                    </div>
+                </div>
+
                 <!-- Concept: 而岁月不见火焰低吟 -->
                 <div class="concept-block">
                     <p class="gallery-title">概念设定 - “而岁月不见火焰低吟” (The Quietness of a Flame)</p>
@@ -456,6 +513,7 @@
             <div id="lightbox" class="lightbox">
                 <button id="close-btn" class="close-btn" aria-label="Close lightbox">×</button>
                 <img id="lightbox-image" src="" alt="" class="lightbox-image">
+                <video id="lightbox-video" controls class="lightbox-image" style="display: none;"></video>
             </div>
         </main>
 
@@ -475,12 +533,22 @@
         // DOM elements
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxVideo = document.getElementById('lightbox-video');
         const closeBtn = document.getElementById('close-btn');
         const galleryItems = document.querySelectorAll('.gallery-item');
 
         // Open lightbox when thumbnail is clicked
-        function openLightbox(imageSrc) {
-            lightboxImage.src = imageSrc;
+        function openLightbox(src, isVideo = false) {
+            if (isVideo) {
+                lightboxImage.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = src;
+                lightboxVideo.play();
+            } else {
+                lightboxVideo.style.display = 'none';
+                lightboxImage.style.display = 'block';
+                lightboxImage.src = src;
+            }
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
         }
@@ -490,9 +558,13 @@
             lightbox.classList.remove('active');
             closeBtn.classList.remove('visible');
             document.body.style.overflow = ''; // Restore scrolling
-            // Clear image source after animation completes
+            // Clear sources and stop video after animation completes
             setTimeout(() => {
                 lightboxImage.src = '';
+                lightboxVideo.pause();
+                lightboxVideo.src = '';
+                lightboxImage.style.display = 'none';
+                lightboxVideo.style.display = 'none';
             }, 300);
         }
 
@@ -513,7 +585,12 @@
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {
                 const imageSrc = item.dataset.image;
-                openLightbox(imageSrc);
+                const videoSrc = item.dataset.video;
+                if (videoSrc) {
+                    openLightbox(videoSrc, true);
+                } else if (imageSrc) {
+                    openLightbox(imageSrc, false);
+                }
             });
         });
 
