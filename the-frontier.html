@@ -234,6 +234,13 @@
             margin-top: 1rem;
         }
 
+        .concept-block .concept-text-left .character-divider {
+            border: none;
+            border-top: 1px solid rgba(165, 180, 252, 0.25);
+            margin: 1.2rem 0;
+        }
+
+
         /* Force a strict 2-column grid for sections with exactly 4 images */
         .concept-block .gallery-grid.gallery-grid-2x2 {
             grid-template-columns: repeat(2, 1fr);
@@ -272,6 +279,23 @@
             user-select: none;
         }
 
+        /* Side-by-side concept layout */
+        .concept-content-flex {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .concept-text-left {
+            flex: 1.2;
+        }
+
+        .concept-image-right {
+            flex: 0.8;
+            max-width: 450px;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .gallery-grid {
@@ -289,7 +313,8 @@
                 font-size: 1.5rem;
             }
 
-            .character-block {
+            .character-block,
+            .concept-content-flex {
                 flex-direction: column;
                 align-items: center;
             }
@@ -367,21 +392,73 @@
                     <span class="section-divider-line"></span>
                 </div>
 
-                <!-- Concept: 行星门 & 事件视界 -->
+                <!-- Concept: 世界褶皱里的印记 -->
                 <div class="concept-block">
-                    <p class="gallery-title">概念设定 - “行星门 & 事件视界” (Planet Gate & Event Horizon)</p>
-                    <p class="gallery-font">「事件视界」一种时空的曲隔界线。视界中的任何事件无法对视界外的观察者产生影响，在黑洞周围的便是事件视界。</p>
-                    <p class="gallery-font">"Event Horizon" - A boundary in spacetime. No events within the horizon can
-                        affect an outside observer. The region surrounding a black hole is an event horizon.</p>
-                    <div class="gallery-grid" style="max-width: 440px; margin-left: auto; margin-right: auto;">
-                        <div class="gallery-item video-item" data-video="images/star_gate-0.mov">
-                            <video src="images/star_gate-0.mov" class="thumbnail" muted loop playsinline
-                                autoplay></video>
+                    <p class="gallery-title">概念设定 - “世界褶皱里的印记” (Impressions in the Folds of the World)</p>
+                    <div class="concept-content-flex">
+                        <div class="concept-text-left">
+                            <!-- Chinese -->
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">“我记得你。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">
+                                “每一处坐标我都认得出，底色、运河、傍晚、空廓柔和的风廊。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">
+                                “在斯瓦尔巴的夜里反复调试望远镜的你，在公路旅行中辨认行星坐标的你，安静到几乎透明的叙述者的你，穹顶之下的你。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">
+                                “你偶尔离开时，我替你照看未完成的院落。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">“现在你回来了。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">
+                                “边陲的温度还是记忆中的样子。雪落得很慢，星光抵达时已经走了几亿年。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">“你回望镜片上的霜。”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">
+                                “是回到那个夜晚，还是去寻找未被讲述的偏斜？”</p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.6rem;">“从哪一处继续呢？从哪一处开始呢？”
+                            </p>
+                            <p class="gallery-font" style="text-align: left; margin-bottom: 0.2rem;">“我记得你。”</p>
+
+                            <hr class="character-divider">
+
+                            <!-- English -->
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "I remember you."</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "I recognize every coordinate—the undertones, the canals, the dusk, the vast and gentle
+                                corridors of wind."</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "You, fine-tuning the telescope in the nights of Svalbard; you, identifying planetary
+                                coordinates on road trips; you, the narrator, quiet to the point of transparency; you,
+                                beneath the dome."</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "Whenever you leave, I look after the unfinished courtyard for you."</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "Now you are back."</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "The temperature of the frontier is just as I remember. The snow falls slowly; the
+                                starlight has traveled for hundreds of millions of years by the time it reaches us."
+                            </p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "You look back at the frost upon the lens."</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "Is it to return to that night, or to go in search of the untold deviation?"</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0.5rem; font-style: italic; opacity: 0.75;">
+                                "From where shall we continue? From where shall we begin?"</p>
+                            <p class="gallery-font"
+                                style="text-align: left; margin-bottom: 0; font-style: italic; opacity: 0.75;">
+                                "I remember you."</p>
                         </div>
-                    </div>
-                    <div class="concept-note">
-                        <p class="gallery-font" style="text-align: center; font-size: 12px;">Note: The video is made by
-                            Seedance 2.0.</p>
+                        <div class="concept-image-right">
+                            <div class="gallery-item" data-image="images/世界褶皱里的印记.JPG">
+                                <img src="images/世界褶皱里的印记.JPG" alt="世界褶皱里的印记" class="thumbnail">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -435,6 +512,44 @@
                     </div>
                 </div>
 
+                <!-- Concept: Heart of the Sea -->
+                <div class="concept-block">
+                    <p class="gallery-title">概念设定 - “海之心” (Heart of the Sea)</p>
+                    <p class="gallery-font">"悬于蔚蓝初生星上的微光栖所，向深海与星际同时敞开。"</p>
+                    <p class="gallery-font">"A glimmering habitat suspended above a blue, newly born star, open to
+                        both
+                        the deep sea and the stars."</p>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-image="images/Heart of the Sea 0.png">
+                            <img src="images/Heart of the Sea 0.png" alt="Heart of the Sea - Image 0" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Heart of the Sea 1.png">
+                            <img src="images/Heart of the Sea 1.png" alt="Heart of the Sea - Image 1" class="thumbnail">
+                        </div>
+                        <div class="gallery-item" data-image="images/Heart of the Sea 2.png">
+                            <img src="images/Heart of the Sea 2.png" alt="Heart of the Sea - Image 2" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept: 行星门 & 事件视界 -->
+                <div class="concept-block">
+                    <p class="gallery-title">概念设定 - “行星门 & 事件视界” (Planet Gate & Event Horizon)</p>
+                    <p class="gallery-font">「事件视界」一种时空的曲隔界线。视界中的任何事件无法对视界外的观察者产生影响，在黑洞周围的便是事件视界。</p>
+                    <p class="gallery-font">"Event Horizon" - A boundary in spacetime. No events within the horizon can
+                        affect an outside observer. The region surrounding a black hole is an event horizon.</p>
+                    <div class="gallery-grid" style="max-width: 440px; margin-left: auto; margin-right: auto;">
+                        <div class="gallery-item video-item" data-video="images/star_gate-0.mov">
+                            <video src="images/star_gate-0.mov" class="thumbnail" muted loop playsinline
+                                autoplay></video>
+                        </div>
+                    </div>
+                    <div class="concept-note">
+                        <p class="gallery-font" style="text-align: center; font-size: 12px;">Note: The video is made by
+                            Seedance 2.0.</p>
+                    </div>
+                </div>
+
                 <!-- Concept: Protoplanet Embryo Initiative -->
                 <div class="concept-block">
                     <p class="gallery-title">概念设定 - “原行星胚胎计划” (Protoplanet Embryo Initiative)</p>
@@ -458,26 +573,6 @@
                         <div class="gallery-item" data-image="images/Protoplanet_Embryo_Initiative-images-3.JPG">
                             <img src="images/Protoplanet_Embryo_Initiative-images-3.JPG"
                                 alt="Protoplanet Embryo Initiative - Image 3" class="thumbnail">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Concept: Heart of the Sea -->
-                <div class="concept-block">
-                    <p class="gallery-title">概念设定 - “海之心” (Heart of the Sea)</p>
-                    <p class="gallery-font">"悬于蔚蓝初生星上的微光栖所，向深海与星际同时敞开。"</p>
-                    <p class="gallery-font">"A glimmering habitat suspended above a blue, newly born star, open to
-                        both
-                        the deep sea and the stars."</p>
-                    <div class="gallery-grid">
-                        <div class="gallery-item" data-image="images/Heart of the Sea 0.png">
-                            <img src="images/Heart of the Sea 0.png" alt="Heart of the Sea - Image 0" class="thumbnail">
-                        </div>
-                        <div class="gallery-item" data-image="images/Heart of the Sea 1.png">
-                            <img src="images/Heart of the Sea 1.png" alt="Heart of the Sea - Image 1" class="thumbnail">
-                        </div>
-                        <div class="gallery-item" data-image="images/Heart of the Sea 2.png">
-                            <img src="images/Heart of the Sea 2.png" alt="Heart of the Sea - Image 2" class="thumbnail">
                         </div>
                     </div>
                 </div>
