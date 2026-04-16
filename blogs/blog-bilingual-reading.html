@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bilingual Reading - Fengyan Zhang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Thoughts on bilingual reading and expanding one's worldview - Fengyan Zhang" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        /* Blog page — scoped styles */
+        .blog-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid rgba(165, 180, 252, 0.5);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .blog-quote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a5b4fc;
+            text-align: left;
+        }
+
+        .blog-source {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: #6b7280;
+            text-align: left;
+            padding-left: 0.25rem;
+        }
+
+        .blog-source-cn {
+            display: block;
+            margin-top: 0.15rem;
+        }
+
+        /* Headings inside a blog entry */
+        .blog-heading {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #c4caff;
+            margin: 1.2rem 0 0.4rem;
+            letter-spacing: 0.03em;
+        }
+
+        .blog-heading:first-child {
+            margin-top: 0;
+        }
+
+        /* Individual wisdom quote block */
+        .blog-wisdom-quote {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: #d1d5db;
+            font-style: italic;
+            margin: 0.6rem 0 0.15rem;
+        }
+
+        /* Right-aligned attribution under each quote */
+        .blog-wisdom-attr {
+            font-size: 0.82rem;
+            color: #6b7280;
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .blog-wisdom-attr a {
+            color: #9ca3af;
+            transition: color 0.2s ease;
+        }
+
+        .blog-wisdom-attr a:hover {
+            color: #a5b4fc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Header Section -->
+        <header class="projects-header shell">
+            <a href="../blog.html" class="back-link">← Back to Blog</a>
+            <h1 class="projects-title">Bilingual Reading</h1>
+            <div class="projects-subtitle">
+                <p>
+                    On the experience of reading English originals and translations.
+                </p>
+            </div>
+        </header>
+
+        <!-- blog -->
+        <main class="blog-section shell">
+            <!-- Essay entry -->
+            <div class="blog-entry">
+                <h2 class="blog-heading">Original vs. Translation</h2>
+                <p class="blog-quote">
+                    I'd like to discuss reading original English texts versus translations. It started when
+                    I wanted to read the <em>Foundation</em> series, and I found both the original English version and
+                    the translation. I found that the two offer different experiences.
+                </p>
+                <p class="blog-quote">
+                    Initially, I thought my English level was sufficient for basic reading, and I wanted to improve my
+                    English reading skills by reading the original English version. However, while reading the original,
+                    I encountered many unfamiliar words; it was no longer the safe haven of reading that I used to know.
+                    In my current life, I've placed reading in a resting place outside of job hunting/study, and for
+                    this reason, I switched back to reading in Chinese.
+                </p>
+
+                <h2 class="blog-heading">The Allure of the Original Expression</h2>
+                <p class="blog-quote">
+                    However, during the reading process, I found that if I were capable of reading the original English
+                    version, I would still prefer it. One reason is that I've been consistently reading Chinese for a
+                    long time, but over time, even with different book types and different language styles, it brings a
+                    certain degree of "fatigue." That is, when I see Chinese expressions, I want to know what the
+                    original English expressions are, rather than just being satisfied with following the plot.
+                </p>
+                <p class="blog-quote">
+                    Therefore, I switched to bilingual reading, first reading the original English version, and then
+                    looking for the Chinese version when I couldn't understand it. Alternatively, I might read the
+                    Chinese version first to understand the plot, and then read the original English text to experience
+                    its expression.
+                </p>
+
+                <h2 class="blog-heading">Expanding Horizons and Managing Uncertainty</h2>
+                <p class="blog-quote">
+                    In summary, my current reading habits (because my past single-minded reading pattern, such as
+                    reading a specific book every day until it's finished before moving on to the next, is no longer
+                    sufficient to manage my anxiety and uncertainty during my job search) involve reading different
+                    books every day to experience different language styles and worlds. I now urgently want to "expand"
+                    my knowledge and worldview.
+                </p>
+                <p class="blog-quote">
+                    While I believe I will still be drawn to the single, in-depth reading style of the past, and I do
+                    need immersive experiences to recover when I'm tired, I've also discovered the weakness of my overly
+                    singular and unstable mental world (for example, for a period of time, I only read romance novels,
+                    which led to idealized values and a lack of understanding of reality).
+                </p>
+                <p class="blog-quote">
+                    Therefore, my current reading needs to be broad, not only in terms of content but also in terms of
+                    language. In reading, the plot is certainly important, but the art of expression is equally
+                    captivating. Furthermore, I want to improve my expressive abilities.
+                </p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>
+                © <span id="year"></span> Fengyan Zhang ·
+                <a href="mailto:fengyan_zhang0320@outlook.com">email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
